@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+
+:root {
+    --very-light-pink: #C7C7C7;
+    --white: #FFFFFF;
+    --text-input-field: #F7F7F7;
+    --black: #000000;
+    --hospital-green: #ACD9B2;
+    --dark: #232830;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Quicksand', sans-serif;
+    background-color: var(--white);
+    color: var(--black);
+}
+
+a {
+    text-decoration: none;
+    color: var(--black);
+}
+
+ul {
+    list-style: none;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+
+input {
+    border: none;
+    outline: none;
+}
+
+select {
+    border: none;
+    outline: none;
+    font-weight: lighter;
+    font-size: 12px;
+}
+select option {
+    background-color: var(--white);
+}
