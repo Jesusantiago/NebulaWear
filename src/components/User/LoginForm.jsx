@@ -36,7 +36,7 @@ const LoginForm = () => {
                 <input type="password" placeholder="********" {...register("password")}/>
 
                 <button type="submit">Login</button>
-                <a href="/" className="">Forgot my password</a>
+                <a href="/forgotpassword" className="">Forgot my password</a>
             </form>
 
             <div className="loginFooter">

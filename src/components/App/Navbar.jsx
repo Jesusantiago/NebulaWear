@@ -1,4 +1,4 @@
-import Logo from '../assets/logos/logo_yard_sale.svg';
+import Logo from '../../assets/logos/logo_yard_sale.svg';
 import MenuIcon from '@mui/icons-material/Menu';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 

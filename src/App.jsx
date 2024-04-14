@@ -1,15 +1,8 @@
-import Navbar from './components/Navbar';
+import Navbar from './components/App/Navbar';
 import SearchIcon from '@mui/icons-material/Search';
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-
-import LoginForm from './components/LoginForm';
-import RecoveryPasswordForm from './components/RecoveryPasswordForm';
-
-// import images
-import imgProduct2 from './assets/imgs/secondProd.png';
+import Product  from "./components/Product/Product";
 
 // import styles
-import imgProduct from './assets/imgs/image.png';
 import './styles/home.css';
 import './styles/login.css';
 import './styles/passRecovery.css';
@@ -37,40 +30,6 @@ const Categories = () => {
   )
 }
 
-const Product = () => {
-  return (
-    <div className="productItem">
-      <img src={imgProduct
-      } alt="Product 1" />
-      <div className="productItemDetails">
-        <div className="productItemPrice">
-          <span className="price">$ 120,00</span>
-          <span className="title">Round shelf</span>
-        </div>
-        <button className="addToCart">º
-          <AddShoppingCartIcon />
-        </button>
-      </div>
-    </div>
-  )
-}
-
-const ProductDetails = () => {
-  return (
-    <section>
-      <article className="product">
-        <img src={imgProduct2} alt="Product image" />
-        <div className="productInfo">
-          <span>$ 120,00</span>
-          <h1>Retro refrigerator</h1>
-          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veritatis tempore alias quaerat ad iure cum provident distinctio omnis eius maxime.</p>
-        </div>
-        <button className="">Add to cart</button>
-      </article>
-    </section>
-  );
-}
-
 function App() {
 
   return (
@@ -78,11 +37,8 @@ function App() {
       <Navbar />
       <main>
         <SearchBox />
-
         <Categories />
-
-        {/* <ProductDetails /> */}
-
+        
         <section className="main">
           <div className="filter">
             <span>Order:</span>
@@ -94,22 +50,15 @@ function App() {
           </div>
 
           <div className="productList">
-
             <Product />
             <Product />
             <Product />
             <Product />
             <Product />
             <Product />
-
-
           </div>
         </section>
-
-        <LoginForm />
-
-        <RecoveryPasswordForm />
-
+        
       </main>
     </>
   )

@@ -16,7 +16,7 @@ const RecoveryPasswordForm = () => {
                         <button>Submit</button>
                 </form>
             </article>
-            <a href="" className="link">Back to login</a>
+            <a href="/login" className="link">Back to login</a>
         </section>
     );
 }
