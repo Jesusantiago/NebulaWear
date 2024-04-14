@@ -47,7 +47,7 @@ const Product = () => {
           <span className="price">$ 120,00</span>
           <span className="title">Round shelf</span>
         </div>
-        <button className="addToCart">
+        <button className="addToCart">º
           <AddShoppingCartIcon />
         </button>
       </div>
@@ -97,22 +97,18 @@ function App() {
 
             <Product />
             <Product />
-
             <Product />
-
             <Product />
-
             <Product />
-
             <Product />
 
 
           </div>
         </section>
 
-        {/* <LoginForm /> */}
+        <LoginForm />
 
-        {/* <RecoveryPasswordForm /> */}
+        <RecoveryPasswordForm />
 
       </main>
     </>
