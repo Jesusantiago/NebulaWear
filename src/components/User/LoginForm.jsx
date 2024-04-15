@@ -1,6 +1,11 @@
 // @libreria { react-hook-form } encargada de manejar los datos del formulario.
 // @documentacion https://react-hook-form.com/get-started
 import { useForm } from "react-hook-form";
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Grid from "@mui/material/Grid";
+
 
 const LoginForm = () => {
 
@@ -13,36 +18,110 @@ const LoginForm = () => {
     // @funcion { OnSubmit } Recibe los datos enviados desde el formulario.
     // @parametro { data } la data que recibe desde el formulario
     // @constante { email } extrae solamente el email de la data
-    const onSubmit = ( data ) => {
+    const onSubmit = (data) => {
         const { email } = data
-
-        if(email){
+        console.log(data)
+        if (email) {
             return localStorage.setItem("login", email)
         } else false
     }
-    
+
     return (
-        <section className="login">
-            <div className="logo">
-                <img src="./assets/logos/logo_yard_sale.svg" alt="Logo Yard Sale" />
-            </div>
+        <Box
+            component="section"
+            display="flex"
+            flexDirection="column"
+            justifyContent="space-between"
+            alignItems="center"
+            sx={{
+                minHeight: "100svh",
+                width: 1,
+                py: 6,
+                px: 4
+            }}
+        >
 
-            <form className="loginForm" onSubmit={handleSubmit(onSubmit)}>
+            <Box
+                component="article"
+                display="flex"
+                alignItems="end"
+                justifyContent="center"
 
-                <label htmlFor="email" name="email">Email</label>
-                <input type="email" placeholder="youremail@example.com" {...register("email")}/>
+                sx={{
+                    minWidth: 1,
+                    height: "20svh"
+                }}
 
-                <label htmlFor="password" name="password">Password</label>
-                <input type="password" placeholder="********" {...register("password")}/>
+       
+            >
+                <img src="src/assets/logos/logo_yard_sale.svg" />
+            </Box>
 
-                <button type="submit">Login</button>
-                <a href="/forgotpassword" className="">Forgot my password</a>
-            </form>
+            <Box
+                component="form"
+                display="flex"
+                flexDirection="column"
+                justifyContent="space-between"
+                sx={{
+                    width: 1,
+                    height: "35svh"
+                }}
+                onSubmit={handleSubmit(onSubmit)} 
+            >
+                <TextField
+                    label="Email"
+                    placeholder="youremail@example.com"
+                    variant="filled"
+                    color="success"
+                    margin="dense"
+                    fullWidth
+                    autoFocus
+                    {...register('email')}
+                />
 
-            <div className="loginFooter">
-                <button>Sign up</button>
-            </div>
-        </section>
+                <TextField
+                    label="Password"
+                    placeholder="........."
+                    variant="filled"
+                    color="success"
+                    margin="dense"
+                    fullWidth
+                    {...register('password')}
+                />
+
+                <Button
+                    variant="contained"
+                    type="submit"
+                    color="success"
+                    margin="dense"
+                    size="large"
+                    fullWidth>
+                    Login
+                </Button>
+                <Button
+                    href="/forgotpassword"
+                    variant="text"
+                    color="success"
+                    size="md"
+                    fullWidth
+                >
+                    Forgot my password
+                </Button>
+            </Box>
+
+
+            <Button
+                href=''
+                color='success'
+                underline="none"
+                variant="outlined"
+                size="large"
+                fullWidth
+                mt={6}
+            >
+                Sign up
+            </Button>
+        </Box>
     );
 }
 

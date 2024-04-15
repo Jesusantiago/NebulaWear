@@ -40,13 +40,13 @@
     border-radius: 4px;
 }
 
-.loginForm button {
+/* .loginForm button {
     background-color: var(--hospital-green);
     color: white;
     padding: .75rem;
     font-weight: bold;
     border-radius: 4px;
-}
+} */
 
 .loginForm a {
     text-align: center;

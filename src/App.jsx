@@ -3,10 +3,10 @@ import SearchIcon from '@mui/icons-material/Search';
 import Product  from "./components/Product/Product";
 
 // import styles
-import './styles/home.css';
-import './styles/login.css';
-import './styles/passRecovery.css';
-import './styles/product.css';
+// import './styles/home.css';
+// import './styles/login.css';
+// import './styles/passRecovery.css';
+// import './styles/product.css';
 // - - -
 
 const SearchBox = () => {
@@ -28,6 +28,10 @@ const Categories = () => {
       <span>Toys</span>
     </div>
   )
+}
+
+const logoutComponent = () => {
+  localStorage.clear()
 }
 
 function App() {
@@ -58,6 +62,8 @@ function App() {
             <Product />
           </div>
         </section>
+
+        <button type='button' onClick={logoutComponent} > Cerrar sesion</button>
         
       </main>
     </>
