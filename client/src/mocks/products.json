@@ -1,0 +1,349 @@
+[
+    {
+      "id": 238,
+      "title": "Producto de pruebaasadw",
+      "price": 1201,
+      "description": "Ni ideaefweg weg",
+      "images": [
+        "[\"https://sublimachile.cl/wp-content/uploads/2020/12/polera-blanca-sublimachile.jpg",
+        "https://austrostore.cl/wp-content/uploads/2023/01/Polera-Blanca-Hombre-Manga-Corta-Algodon-Ideal-para-Serigrafia-Estampar.jpghttps://sublimachile.cl/wp-content/uploads/2020/12/polera-blanca-sublimachile.jpg",
+        "https://austrostore.cl/wp-content/uploads/2023/01/Polera-Blanca-Hombre-Manga-Corta-Algodon-Ideal-para-Serigrafia-Estampar.jpg\"]"
+      ],
+      "creationAt": "2024-04-12T22:34:02.000Z",
+      "updatedAt": "2024-04-12T22:42:25.000Z",
+      "category": {
+        "id": 12,
+        "name": "Trucks",
+        "image": "https://t4.ftcdn.net/jpg/00/8138.jpg",
+        "creationAt": "2024-04-12T19:21:18.000Z",
+        "updatedAt": "2024-04-12T19:21:18.000Z"
+      }
+    },
+    {
+      "id": 239,
+      "title": "Que den más tiempo",
+      "price": 10000000000,
+      "description": "Por lo menos hasta las 23:59! \u003C- Banco esto",
+      "images": [
+        "[\"https://i.imgur.com/4lTaHfF.jpeg\"]"
+      ],
+      "creationAt": "2024-04-12T22:34:30.000Z",
+      "updatedAt": "2024-04-12T22:40:54.000Z",
+      "category": {
+        "id": 17,
+        "name": "What a nice Product",
+        "image": "https://t4.ftcdn.net/jpg/00/81/38/59/360_F_81385977_wNaDMtgrIj5uU5QEQLcC9UNzkJc57xbu.jpg",
+        "creationAt": "2024-04-12T19:42:06.000Z",
+        "updatedAt": "2024-04-12T19:42:06.000Z"
+      }
+    },
+    {
+      "id": 245,
+      "title": "Polera Blanca",
+      "price": 1,
+      "description": "Polera blanca de algodón",
+      "images": [
+        "[\"https://sublimachile.cl/wp-content/uploads/2020/12/polera-blanca-sublimachile.jpg\"",
+        "\"https://austrostore.cl/wp-content/uploads/2023/01/Polera-Blanca-Hombre-Manga-Corta-Algodon-Ideal-para-Serigrafia-Estampar.jpg\"]"
+      ],
+      "creationAt": "2024-04-12T22:34:32.000Z",
+      "updatedAt": "2024-04-12T22:34:32.000Z",
+      "category": {
+        "id": 1,
+        "name": "Clothes",
+        "image": "https://i.imgur.com/QkIa5tT.jpeg",
+        "creationAt": "2024-04-12T17:10:18.000Z",
+        "updatedAt": "2024-04-12T17:10:18.000Z"
+      }
+    },
+    {
+      "id": 247,
+      "title": "Nueva Polera",
+      "price": 10,
+      "description": "Polera con imagenes de disney",
+      "images": [
+        "[\"https://placeimg.com/640/480/any\"]"
+      ],
+      "creationAt": "2024-04-12T22:37:08.000Z",
+      "updatedAt": "2024-04-12T22:37:08.000Z",
+      "category": {
+        "id": 1,
+        "name": "Clothes",
+        "image": "https://i.imgur.com/QkIa5tT.jpeg",
+        "creationAt": "2024-04-12T17:10:18.000Z",
+        "updatedAt": "2024-04-12T17:10:18.000Z"
+      }
+    },
+    {
+      "id": 248,
+      "title": "Nueva Polera",
+      "price": 10,
+      "description": "Polera con imagenes de disney",
+      "images": [
+        "[\"https://placeimg.com/640/480/any\"]"
+      ],
+      "creationAt": "2024-04-12T22:37:41.000Z",
+      "updatedAt": "2024-04-12T22:37:41.000Z",
+      "category": {
+        "id": 1,
+        "name": "Clothes",
+        "image": "https://i.imgur.com/QkIa5tT.jpeg",
+        "creationAt": "2024-04-12T17:10:18.000Z",
+        "updatedAt": "2024-04-12T17:10:18.000Z"
+      }
+    },
+    {
+      "id": 249,
+      "title": "HHHHH",
+      "price": 777,
+      "description": "HHHH",
+      "images": [
+        "[\"https://placeimg.com/640/480/any?r=0.591926261873231\"]"
+      ],
+      "creationAt": "2024-04-12T22:37:56.000Z",
+      "updatedAt": "2024-04-12T22:37:56.000Z",
+      "category": {
+        "id": 4,
+        "name": "Shoes",
+        "image": "https://i.imgur.com/qNOjJje.jpeg",
+        "creationAt": "2024-04-12T17:10:18.000Z",
+        "updatedAt": "2024-04-12T17:10:18.000Z"
+      }
+    },
+    {
+      "id": 250,
+      "title": "HHHHH",
+      "price": 777,
+      "description": "HHHH",
+      "images": [
+        "[\"https://placeimg.com/640/480/any?r=0.591926261873231\"]"
+      ],
+      "creationAt": "2024-04-12T22:38:01.000Z",
+      "updatedAt": "2024-04-12T22:38:01.000Z",
+      "category": {
+        "id": 4,
+        "name": "Shoes",
+        "image": "https://i.imgur.com/qNOjJje.jpeg",
+        "creationAt": "2024-04-12T17:10:18.000Z",
+        "updatedAt": "2024-04-12T17:10:18.000Z"
+      }
+    },
+    {
+      "id": 251,
+      "title": "Nueva Polera",
+      "price": 10,
+      "description": "Polera con imagenes de disney",
+      "images": [
+        "[\"https://placeimg.com/640/480/any\"]"
+      ],
+      "creationAt": "2024-04-12T22:38:29.000Z",
+      "updatedAt": "2024-04-12T22:38:29.000Z",
+      "category": {
+        "id": 1,
+        "name": "Clothes",
+        "image": "https://i.imgur.com/QkIa5tT.jpeg",
+        "creationAt": "2024-04-12T17:10:18.000Z",
+        "updatedAt": "2024-04-12T17:10:18.000Z"
+      }
+    },
+    {
+      "id": 252,
+      "title": "Hola",
+      "price": 10000,
+      "description": "hola",
+      "images": [
+        "[\"https://i.imgur.com/4lTaHfF.jpeg\"]"
+      ],
+      "creationAt": "2024-04-12T22:38:30.000Z",
+      "updatedAt": "2024-04-12T22:38:30.000Z",
+      "category": {
+        "id": 1,
+        "name": "Clothes",
+        "image": "https://i.imgur.com/QkIa5tT.jpeg",
+        "creationAt": "2024-04-12T17:10:18.000Z",
+        "updatedAt": "2024-04-12T17:10:18.000Z"
+      }
+    },
+    {
+      "id": 253,
+      "title": "Hola",
+      "price": 10000,
+      "description": "hola",
+      "images": [
+        "[\"https://i.imgur.com/4lTaHfF.jpeg\"]"
+      ],
+      "creationAt": "2024-04-12T22:38:31.000Z",
+      "updatedAt": "2024-04-12T22:38:31.000Z",
+      "category": {
+        "id": 1,
+        "name": "Clothes",
+        "image": "https://i.imgur.com/QkIa5tT.jpeg",
+        "creationAt": "2024-04-12T17:10:18.000Z",
+        "updatedAt": "2024-04-12T17:10:18.000Z"
+      }
+    },
+    {
+      "id": 254,
+      "title": "Hola",
+      "price": 10000,
+      "description": "hola",
+      "images": [
+        "[\"https://i.imgur.com/4lTaHfF.jpeg\"]"
+      ],
+      "creationAt": "2024-04-12T22:38:32.000Z",
+      "updatedAt": "2024-04-12T22:38:32.000Z",
+      "category": {
+        "id": 1,
+        "name": "Clothes",
+        "image": "https://i.imgur.com/QkIa5tT.jpeg",
+        "creationAt": "2024-04-12T17:10:18.000Z",
+        "updatedAt": "2024-04-12T17:10:18.000Z"
+      }
+    },
+    {
+      "id": 255,
+      "title": "Nueva Polera",
+      "price": 10,
+      "description": "Polera con imagenes de disney",
+      "images": [
+        "[\"https://placeimg.com/640/480/any\"]"
+      ],
+      "creationAt": "2024-04-12T22:38:48.000Z",
+      "updatedAt": "2024-04-12T22:38:48.000Z",
+      "category": {
+        "id": 1,
+        "name": "Clothes",
+        "image": "https://i.imgur.com/QkIa5tT.jpeg",
+        "creationAt": "2024-04-12T17:10:18.000Z",
+        "updatedAt": "2024-04-12T17:10:18.000Z"
+      }
+    },
+    {
+      "id": 256,
+      "title": "ProductoPrueba5",
+      "price": 122,
+      "description": "fasf",
+      "images": [
+        "[\"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freepik.com%2Ffree-photos-vectors%2Fbackground&psig=AOvVaw05O1k41AP5AT44rZv_dCxF&ust=1713046734563000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCLjQw8LavYUDFQAAAAAdAAAAABAZ\"",
+        "\"https://www.google.com/url?sa=i&url=https%3A%2F%2Fpixabay.com%2Fimages%2Fsearch%2Flandscape%2F&psig=AOvVaw05O1k41AP5AT44rZv_dCxF&ust=1713046734563000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCLjQw8LavYUDFQAAAAAdAAAAABAi\"]"
+      ],
+      "creationAt": "2024-04-12T22:38:57.000Z",
+      "updatedAt": "2024-04-12T22:40:25.000Z",
+      "category": {
+        "id": 1,
+        "name": "Clothes",
+        "image": "https://i.imgur.com/QkIa5tT.jpeg",
+        "creationAt": "2024-04-12T17:10:18.000Z",
+        "updatedAt": "2024-04-12T17:10:18.000Z"
+      }
+    },
+    {
+      "id": 257,
+      "title": "Hola",
+      "price": 1000,
+      "description": "hola",
+      "images": [
+        "[\"https://i.imgur.com/4lTaHfF.jpeg\"]"
+      ],
+      "creationAt": "2024-04-12T22:40:27.000Z",
+      "updatedAt": "2024-04-12T22:40:27.000Z",
+      "category": {
+        "id": 12,
+        "name": "Trucks",
+        "image": "https://t4.ftcdn.net/jpg/00/8138.jpg",
+        "creationAt": "2024-04-12T19:21:18.000Z",
+        "updatedAt": "2024-04-12T19:21:18.000Z"
+      }
+    },
+    {
+      "id": 258,
+      "title": "prueba trinity",
+      "price": 10000,
+      "description": "hola",
+      "images": [
+        "[\"https://i.imgur.com/4lTaHfF.jpeg\"]"
+      ],
+      "creationAt": "2024-04-12T22:41:00.000Z",
+      "updatedAt": "2024-04-12T22:41:00.000Z",
+      "category": {
+        "id": 1,
+        "name": "Clothes",
+        "image": "https://i.imgur.com/QkIa5tT.jpeg",
+        "creationAt": "2024-04-12T17:10:18.000Z",
+        "updatedAt": "2024-04-12T17:10:18.000Z"
+      }
+    },
+    {
+      "id": 259,
+      "title": "HOLAAAAA",
+      "price": 666,
+      "description": "jksjskkaka",
+      "images": [
+        "[\"https://placeimg.com/640/480/any?r=0.591926261873231\"]"
+      ],
+      "creationAt": "2024-04-12T22:41:10.000Z",
+      "updatedAt": "2024-04-12T22:41:10.000Z",
+      "category": {
+        "id": 4,
+        "name": "Shoes",
+        "image": "https://i.imgur.com/qNOjJje.jpeg",
+        "creationAt": "2024-04-12T17:10:18.000Z",
+        "updatedAt": "2024-04-12T17:10:18.000Z"
+      }
+    },
+    {
+      "id": 260,
+      "title": "Prueba1",
+      "price": 12,
+      "description": "saf",
+      "images": [
+        "[\"https://www.google.com/url?sa=i&url=https%3A%2F%2Fpixabay.com%2Fimages%2Fsearch%2Flandscape%2F&psig=AOvVaw05O1k41AP5AT44rZv_dCxF&ust=1713046734563000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCLjQw8LavYUDFQAAAAAdAAAAABAi\"",
+        "\"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freepik.com%2Ffree-photos-vectors%2Fbackground&psig=AOvVaw05O1k41AP5AT44rZv_dCxF&ust=1713046734563000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCLjQw8LavYUDFQAAAAAdAAAAABAo\"]"
+      ],
+      "creationAt": "2024-04-12T22:41:28.000Z",
+      "updatedAt": "2024-04-12T22:41:28.000Z",
+      "category": {
+        "id": 2,
+        "name": "Electronics",
+        "image": "https://i.imgur.com/ZANVnHE.jpeg",
+        "creationAt": "2024-04-12T17:10:18.000Z",
+        "updatedAt": "2024-04-12T17:10:18.000Z"
+      }
+    },
+    {
+      "id": 261,
+      "title": "Camiseta",
+      "price": 15,
+      "description": "Si",
+      "images": [
+        "[\"https://austrostore.cl/wp-content/uploads/2023/01/Polera-Blanca-Hombre-Manga-Corta-Algodon-Ideal-para-Serigrafia-Estampar.jpg\"]"
+      ],
+      "creationAt": "2024-04-12T22:42:13.000Z",
+      "updatedAt": "2024-04-12T22:42:13.000Z",
+      "category": {
+        "id": 1,
+        "name": "Clothes",
+        "image": "https://i.imgur.com/QkIa5tT.jpeg",
+        "creationAt": "2024-04-12T17:10:18.000Z",
+        "updatedAt": "2024-04-12T17:10:18.000Z"
+      }
+    },
+    {
+      "id": 262,
+      "title": "PRODUCTO DE PRUEBA BR1",
+      "price": 666,
+      "description": "HHH",
+      "images": [
+        "[\"https://placeimg.com/640/480/any?r=0.591926261873231\"]"
+      ],
+      "creationAt": "2024-04-12T22:42:39.000Z",
+      "updatedAt": "2024-04-12T22:42:39.000Z",
+      "category": {
+        "id": 4,
+        "name": "Shoes",
+        "image": "https://i.imgur.com/qNOjJje.jpeg",
+        "creationAt": "2024-04-12T17:10:18.000Z",
+        "updatedAt": "2024-04-12T17:10:18.000Z"
+      }
+    }
+  ]
