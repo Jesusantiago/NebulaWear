@@ -1,6 +1,5 @@
 const { Sequelize } = require("sequelize-typescript");
 
-// Change localhost to the host to use
 const sequelize = new Sequelize(process.env.DATABASE_URI);
 
 async function testConnection() {
