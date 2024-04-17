@@ -16,8 +16,8 @@ const sequelize = new Sequelize({
       require: true,
       rejectUnauthorized: process.env.NODE_ENV === 'development' ? false : true
     }
-  }
-  // models: [path.resolve(__dirname, '../src/models')],
+  },
+  models: [path.resolve(__dirname, '../models')],
 });
 
 async function testConnection() {
