@@ -2,10 +2,8 @@ import {
   Table, 
   Column, 
   Model, 
-  DataType, 
-  CreatedAt, 
-  UpdatedAt,
-  IsEmail
+  DataType,
+  IsEmail,
 } from "sequelize-typescript";
 
 @Table({
