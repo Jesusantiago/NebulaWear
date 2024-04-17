@@ -7,7 +7,9 @@
     "sourceMap": true,
     "outDir": "dist",
     "rootDir": ".",
-    "allowJs": false
+    "allowJs": false,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]
