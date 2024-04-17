@@ -9,7 +9,7 @@ app.use(express.json())
 routerApi(app);
 
 app.get('/', (req, res) => {
-    res.send({data: 'Hello World'});
+    res.send({ data: 'Hello World' });
 });
 
 app.listen(PORT, () => {
