@@ -10,7 +10,6 @@ const PrivateRouter = () => {
     <Routes>
         <Route path="/" element={<App />} />
         <Route path="*" element={<App/>} replace/>
-      
     </Routes>
   )
 }

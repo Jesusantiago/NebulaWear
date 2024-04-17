@@ -1,4 +1,4 @@
-import { Button, TextField, Typography } from "@mui/material";
+import { Alert, Button, TextField, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import { useForm } from "react-hook-form";
 
@@ -7,8 +7,13 @@ const RecoveryPasswordForm = () => {
     const {
         register,
         handleSubmit,
-        formState: { errors}
+        formState: { errors }
     } = useForm()
+
+    const onSubmit = (data) => {
+        const { email } = data
+        console.log("Correo de Recovery Password: " + email)
+    }
 
     return (
         <Box
@@ -85,7 +90,7 @@ const RecoveryPasswordForm = () => {
                         sx={{
                             width:1,
                         }}
-                        
+                        onSubmit={handleSubmit(onSubmit)}
                     >
                         <TextField
                             label="Email address"
@@ -94,9 +99,20 @@ const RecoveryPasswordForm = () => {
                             margin="normal"
                             fullWidth
                             autoFocus
-                            required
-                            {...register("email")}
+                            type="email"
+                            autoComplete="email"
+                            {...register('email' ,{
+                                required : "Este campo es requerido",
+                                pattern : {
+                                    value: /[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,5}/,
+                                    message: "Intenta introduciendo un correo electronico"    
+                                },
+                                
+                            })}
                         />
+
+                            { ( errors.email && <Alert severity="error" fullWidth> {errors.email.message} </Alert> ) }
+
                         <Button
                             href=""
                             type="submit"
