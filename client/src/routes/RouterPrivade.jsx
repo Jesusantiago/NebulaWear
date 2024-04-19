@@ -5,7 +5,7 @@ import ProductDetails  from "../components/Product/ProductDetails.jsx";
 
 let RouterPrivade = [
     {
-        path: "/",
+        path: "/store",
         name: "Market place",
         component: <App />,
         status: "Privade",
