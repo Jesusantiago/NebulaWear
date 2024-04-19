@@ -1,32 +1,15 @@
-import express, { Request, Response, Router } from 'express';
+import express, { Router } from 'express';
+import UserController from '../controllers/users.controller';
 
 const router: Router = express.Router();
 
-// Define your routes here
-
 // GET /users
-router.get('/', (req: Request, res: Response) => {
-    // Handle GET request for all users
-});
-
+router.get('/', UserController.getAllUsers);
 // GET /users/:id
-router.get('/:id', (req: Request, res: Response) => {
-    // Handle GET request for a specific user
-});
-
-// POST /users
-router.post('/', (req: Request, res: Response) => {
-    // Handle POST request to create a new user
-});
-
-// PUT /users/:id
-router.put('/:id', (req: Request, res: Response) => {
-    // Handle PUT request to update a specific user
-});
-
+router.get('/:id', UserController.getUserById);
+// PATCH /users/:id
+router.patch('/:id', UserController.updateUser);
 // DELETE /users/:id
-router.delete('/:id', (req: Request, res: Response) => {
-    // Handle DELETE request to delete a specific user
-});
+router.delete('/:id', UserController.deleteUser);
 
 export default router;
