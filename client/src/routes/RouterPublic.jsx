@@ -9,12 +9,12 @@ let RouterPublic = [
       name: "Login",
       component: <LoginForm/>,
       status: "Public",
-    },{
-        path: "/forgotpassword",
-        name: "Forgot me password",
-        component: <RecoveryPasswordForm/>,
-        status: "Public",
-
+    },
+    {
+      path: "/forgotpassword",
+      name: "Forgot me password",
+      component: <RecoveryPasswordForm/>,
+      status: "Public",
       },
 ]
 

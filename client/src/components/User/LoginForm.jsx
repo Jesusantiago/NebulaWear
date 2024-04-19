@@ -4,10 +4,14 @@ import { useForm } from "react-hook-form";
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import Grid from "@mui/material/Grid";
+import { Navigate } from "react-router-dom";
+import { useState } from "react";
+import { Alert } from "@mui/material";
 
 
-const LoginForm = () => {
+const LoginForm = ({setUser}) => {
+    const [ error, setError ] = useState(null)
+
 
     const {
         register,
@@ -19,12 +23,17 @@ const LoginForm = () => {
     // @parametro { data } la data que recibe desde el formulario
     // @constante { email } extrae solamente el email de la data
     const onSubmit = (data) => {
-        const { email } = data
-        console.log(data)
-        if (email) {
-            return localStorage.setItem("login", email)
-        } else false
+        const { email } = data;  
+        console.log("data :" + email)
+        if (!email) {
+            return  false
+        } else {
+            localStorage.setItem("login", email)
+            console.log("LoginForm :" + localStorage.getItem("login"))
+            return setUser(email)
+        }
     }
+
 
     return (
         <Box
@@ -40,7 +49,7 @@ const LoginForm = () => {
                 px: 4
             }}
         >
-
+            {/* img */}
             <Box
                 component="article"
                 display="flex"
@@ -51,12 +60,11 @@ const LoginForm = () => {
                     minWidth: 1,
                     height: "20svh"
                 }}
-
-       
             >
                 <img src="src/assets/logos/logo_yard_sale.svg" />
             </Box>
-
+            
+            {/* form */}
             <Box
                 component="form"
                 display="flex"
@@ -76,18 +84,34 @@ const LoginForm = () => {
                     margin="dense"
                     fullWidth
                     autoFocus
-                    {...register('email')}
+                    autoComplete="email"
+                    {...register('email' ,{
+                        required : "Este campo es requerido",
+                        pattern : {
+                            value: /[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,5}/,
+                            message: "Intenta introduciendo un correo electronico"    
+                        },
+                        
+                    })}
                 />
+                { ( errors.email && <Alert severity="error"> {errors.email.message} </Alert> ) }
 
                 <TextField
                     label="Password"
+                    type="password"
                     placeholder="........."
                     variant="filled"
                     color="success"
                     margin="dense"
                     fullWidth
-                    {...register('password')}
+                    autoComplete="current-password"
+                    {...register('password', {
+                        required: "Este campo es requerido",
+                        pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,15}/,
+                    })}
                 />
+
+                { ( errors.password && <Alert severity="error"> {errors.password.message} </Alert>)}
 
                 <Button
                     variant="contained"
@@ -95,7 +119,7 @@ const LoginForm = () => {
                     color="success"
                     margin="dense"
                     size="large"
-                    fullWidth>
+                    >
                     Login
                 </Button>
                 <Button
