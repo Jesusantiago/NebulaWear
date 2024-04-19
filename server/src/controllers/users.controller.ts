@@ -85,7 +85,7 @@ class UserController {
           'phone'
         ]
       });
-      res.status(200).json(user);
+      res.status(200).json({ message: 'Datos actualizados exitosamente.' });
     } catch(err) {
       res.status(500).json({ error: err.message });
     }
