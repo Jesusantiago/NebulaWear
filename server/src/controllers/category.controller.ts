@@ -48,6 +48,31 @@ class CatController {
       res.status(500).json({ error: err.message });
     }
   }
+
+  static async updateCategory(req: Request, res: Response) {
+    try {
+      const catId = req.params.id;
+      const category = await Category.findByPk(catId);
+
+      if(!category) {
+        res.status(404).json({ error: 'Category not found' });
+      }
+
+      category.set({
+        name: req.body.name,
+        is_featured: req.body.is_featured
+      });
+      await category.save({ 
+        fields: [
+          'name', 
+          'is_featured'
+        ]
+      });
+      res.status(200).json({ message: 'Datos actualizados exitosamente.' });
+    } catch(err) {
+      res.status(500).json({ error: err.message });
+    }
+  }
 }
 
 export default CatController;
