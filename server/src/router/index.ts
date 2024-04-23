@@ -3,7 +3,7 @@ import routerProducts from './products.router';
 import routerUsers from './users.router';
 import routerOrders from './orders.router';
 import routerAuth from './auth.router';
-import routerCats from './categories.router';
+import routerCats from './category.router';
 
 function routerApi(app: Express): void {
     app.use('/api/products', routerProducts);
