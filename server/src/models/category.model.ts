@@ -27,7 +27,7 @@ class Category extends Model {
     type: DataType.BOOLEAN,
     defaultValue: false,
   })
-  declare is_featured: boolean;
+  declare isFeatured: boolean;
 }
 
 export default Category;

@@ -27,7 +27,7 @@ class CatController {
 
   static async createCategory(req: Request, res: Response) {
     try {
-      const { name, is_featured } = req.body;
+      const { name, isFeatured } = req.body;
       const category = await Category.findOne({
         where: {
           name: name
@@ -40,7 +40,7 @@ class CatController {
 
       const newCategory = await Category.create({
         name: name,
-        is_featured: is_featured
+        isFeatured: isFeatured
       })
 
       res.status(201).json({ message: 'Categoría creada con éxito.', newCategory });
@@ -60,15 +60,34 @@ class CatController {
 
       category.set({
         name: req.body.name,
-        is_featured: req.body.is_featured
+        isFeatured: req.body.isFeatured
       });
       await category.save({ 
         fields: [
           'name', 
-          'is_featured'
+          'isFeatured'
         ]
       });
       res.status(200).json({ message: 'Datos actualizados exitosamente.' });
+    } catch(err) {
+      res.status(500).json({ error: err.message });
+    }
+  }
+
+  static async deleteCategory(req: Request, res: Response) {
+    try {
+      const catId = req.params.id;
+      const deletedCount = await Category.destroy({
+        where: {
+          id: catId
+        }
+      })
+      
+      if (deletedCount != 1) {
+        res.status(404).json({ error: 'Category not found' });
+      }
+
+      res.status(200).json({ message: `La categoría con ID '${catId}' fue borrada exitosamente.` });
     } catch(err) {
       res.status(500).json({ error: err.message });
     }
