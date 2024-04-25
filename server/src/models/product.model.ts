@@ -3,7 +3,13 @@ import {
     Column, 
     Model, 
     DataType,
+    AllowNull,
+    ForeignKey,
+    BelongsTo,
+    HasMany,
   } from "sequelize-typescript";
+import Category from "./category.model";
+import Rating from "./rating.model";
   
   export enum sizes {
     S = 'S',
@@ -49,11 +55,14 @@ import {
         type: DataType.DECIMAL(2,10),
       })
     declare price: number;
+    
+    @AllowNull(false)
+    @ForeignKey(() => Category)
+    @Column({ type: DataType.UUID })
+    category_id!: string
 
-    @Column({
-        type: DataType.STRING,
-      })
-    declare category: string;
+    @BelongsTo(() => Category)
+    category!: Category
 
     @Column({
       type: DataType.JSON,
@@ -69,11 +78,27 @@ import {
 	  declare images: JSON
 
     @Column({
-        type: DataType.BOOLEAN,
-        defaultValue: false,
-      })
+      type: DataType.BOOLEAN,
+      defaultValue: false,
+    })
     declare isFeatured: boolean;
 
+    @Column({
+      type: DataType.DECIMAL(2,10),
+      defaultValue: 0
+    })
+    declare rating: number;
+
+    @HasMany(() => Rating)
+    ratings: Rating[];
+
   }
+
+  Product.addHook('afterCreate', 'calcularRating', async (product: Product) => {
+    const ratings = await Rating.findAll({ where: { product_id: product.id } });
+    const totalRatings = ratings.reduce((sum, valoracion) => sum + valoracion.rating_value, 0);
+    const rating = totalRatings / ratings.length || 0;
+    await product.update({ rating });
+  });
   
   export default Product;
