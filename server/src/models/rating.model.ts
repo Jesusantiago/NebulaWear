@@ -7,6 +7,7 @@ import {
     AllowNull,
     ForeignKey,
     BelongsToMany,
+    AfterCreate,
   } from "sequelize-typescript";
 import Product from "./product.model";
   
@@ -33,9 +34,23 @@ import Product from "./product.model";
     product!: Product
   
     @Column({
-      type: DataType.DECIMAL(2,10)
+      type: DataType.INTEGER,
+      defaultValue: 0
     })
     declare rating_value: number;
+
+    /*@AfterCreate
+    static async calcularRating(rating: Rating) {
+      console.log("Probando Hook" + rating.rating_value)
+      const product = await Product.findOne({where: {id:  rating.product_id}});
+      const ratings = await Rating.findAll({ where: { product_id: rating.product_id } });
+      console.log("proanbodas "+ratings)
+      const totalRatings = ratings.reduce((sum, rating) => sum + rating.rating_value, 0);
+      console.log(totalRatings)
+      const ratingd = totalRatings / ratings.length;
+      product.update({rating: ratingd});
+      console.log("El rating  de este producto es " + ratingd);
+    }*/
   }
   
   export default Rating;

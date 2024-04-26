@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import Product from "../models/product.model";
 import Category from "../models/category.model";
+import Rating from "../models/rating.model";
 
 class ProductController {
   static async getAllProducts(req: Request, res: Response) {
@@ -28,7 +29,7 @@ class ProductController {
 
   static async createProduct(req: Request, res: Response) {
     try {
-      const { name,description, size, color, price, category, images, isFeatured } = req.body;
+      const { name,description, size, color, price, category, image, isFeatured } = req.body;
       const product = await Product.findOne({
         where: {
           name: name
@@ -45,8 +46,8 @@ class ProductController {
         size: size,
         color: color,
         price: price,
-        category: category,
-        images: images,
+        category_id: category,
+        image: image,
         isFeatured: isFeatured
       })
 
@@ -62,7 +63,7 @@ class ProductController {
       const product = await Product.findByPk(productId);
 
       if(!product) {
-        res.status(404).json({ error: 'Product not found' });
+        res.status(404).json({ error: 'Producto inexistente' });
       }
 
       product.set({
@@ -71,8 +72,8 @@ class ProductController {
         size: req.body.size || product.size,
         color: req.body.color || product.color,
         price: parseFloat(req.body.price as string),
-        category: req.body.category || product.category,
-        images: JSON.stringify(req.body.images) || product.images
+        category_id: req.body.category || product.category_id,
+        image: req.body.image || product.image
         //images: req.files ? [...product.images, ...(req.files as any[])] : product.images
       });
 
@@ -83,8 +84,8 @@ class ProductController {
           'size',  
           'color',  
           'price',  
-          'category',  
-          'images',
+          'category_id',  
+          'image',
           'isFeatured'
         ]
       });
@@ -108,6 +109,31 @@ class ProductController {
       }
 
       res.status(200).json({ message: `El producto con ID '${productId}' fue borrado exitosamente.` });
+    } catch(err) {
+      res.status(500).json({ error: err.message });
+    }
+  }
+
+  static async rateProduct(req: Request, res: Response) {
+    try {
+      const { product_id, rating_value } = req.body;
+  
+      const newProductRating = await Rating.create({
+        product_id: product_id,
+        rating_value: rating_value
+      })
+
+      const product = await Product.findOne({where: {id:  newProductRating.product_id}});
+      const ratings = await Rating.findAll({ where: { product_id: newProductRating.product_id } });
+      
+      let totalRatings: number = product.rating 
+      ratings.forEach(rating => {
+        totalRatings+= rating.rating_value as number
+      })
+      const ratingd = Math.floor(totalRatings / ratings.length);
+      await Product.update({rating: ratingd},{where: {id: newProductRating.product_id}});;
+      
+      res.status(201).json({ message: 'Producto valorado con éxito.', newProductRating });
     } catch(err) {
       res.status(500).json({ error: err.message });
     }

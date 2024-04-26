@@ -7,6 +7,7 @@ import {
     ForeignKey,
     BelongsTo,
     HasMany,
+    AfterCreate,
   } from "sequelize-typescript";
 import Category from "./category.model";
 import Rating from "./rating.model";
@@ -16,7 +17,7 @@ import Rating from "./rating.model";
     M = 'M',
     L = 'L',
     XL = 'XL'
-}
+  }
 
   @Table({
     timestamps: false,
@@ -52,7 +53,7 @@ import Rating from "./rating.model";
     declare color: string;
 
     @Column({
-        type: DataType.DECIMAL(2,10),
+        type: DataType.DECIMAL(10,2),
       })
     declare price: number;
     
@@ -65,17 +66,9 @@ import Rating from "./rating.model";
     category!: Category
 
     @Column({
-      type: DataType.JSON,
-      defaultValue: [],
-      get() {
-        const rawValue = this.getDataValue('images')
-        return rawValue ? JSON.parse(rawValue) : []
-      },
-      set(value: string[]) {
-        this.setDataValue('images', JSON.stringify(value))
-      },
+      type: DataType.STRING
     })
-	  declare images: JSON
+	  declare image: string
 
     @Column({
       type: DataType.BOOLEAN,
@@ -84,7 +77,7 @@ import Rating from "./rating.model";
     declare isFeatured: boolean;
 
     @Column({
-      type: DataType.DECIMAL(2,10),
+      type: DataType.INTEGER,
       defaultValue: 0
     })
     declare rating: number;
@@ -92,13 +85,17 @@ import Rating from "./rating.model";
     @HasMany(() => Rating)
     ratings: Rating[];
 
+    /*@AfterCreate
+    static async calcularRating(product: Product) {
+      console.log("Probando Hook")
+      const ratings = await Rating.findAll({ where: { product_id: product.id } });
+      const totalRatings = ratings.reduce((sum, valoracion) => sum + valoracion.rating_value, 0);
+      const rating = totalRatings / ratings.length;
+      product.rating = rating;
+      product.save()
+      console.log("El rating  de este producto es " + rating);
+    }*/
+    
   }
-
-  Product.addHook('afterCreate', 'calcularRating', async (product: Product) => {
-    const ratings = await Rating.findAll({ where: { product_id: product.id } });
-    const totalRatings = ratings.reduce((sum, valoracion) => sum + valoracion.rating_value, 0);
-    const rating = totalRatings / ratings.length || 0;
-    await product.update({ rating });
-  });
   
   export default Product;
