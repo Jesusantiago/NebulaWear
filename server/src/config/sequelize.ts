@@ -11,6 +11,7 @@ const sequelize = new Sequelize({
   host,
   port,
   dialect,
+  logging: false,
   dialectOptions: {
     ssl: {
       require: true,

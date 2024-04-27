@@ -13,7 +13,7 @@ router.post('/', ProductController.createProduct);
 router.patch('/:id', ProductController.updateProduct);
 // DELETE /products/:id
 router.delete('/:id', ProductController.deleteProduct);
-//
+// POST /products/:id/rating
 router.post('/rating', ProductController.rateProduct)
 
 export default router;

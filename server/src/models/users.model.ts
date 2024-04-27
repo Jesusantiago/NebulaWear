@@ -55,6 +55,11 @@ class User extends Model {
     defaultValue: 'client',
   })
   declare role: 'client' | 'admin';
+
+  @Column({
+    type: DataType.STRING
+  })
+  declare reset_token: string
 }
 
 export default User;
