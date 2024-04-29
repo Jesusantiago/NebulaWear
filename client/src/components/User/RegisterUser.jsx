@@ -1,17 +1,12 @@
-// @libreria { react-hook-form } encargada de manejar los datos del formulario.
-// @documentacion https://react-hook-form.com/get-started
 import { useForm } from "react-hook-form";
-import { Box, TextField, Button, Alert } from "@mui/material";
+import { Box, TextField, Button, Alert, Typography } from "@mui/material";
 import { Navigate } from "react-router-dom";
 import { useState } from "react";
 import { useAuth } from "../../context/isAuthContext";
 
-
-const LoginForm = ({ setUser }) => {
-    const [ data, setData ] = useState()
+const RegisterUser = () => {
     const [error, setError] = useState(null)
     const auth = useAuth()
-
     const {
         register,
         handleSubmit,
@@ -21,13 +16,41 @@ const LoginForm = ({ setUser }) => {
     // @funcion { OnSubmit } Recibe los datos enviados desde el formulario.
     // @parametro { data } la data que recibe desde el formulario
     // @constante { email } extrae solamente el email de la data
-    const onSubmit = ( data ) => {      
-        const { email, password } = data;
-        
-        auth.login(email, password)
+
+    const valueObj = [
+        {
+            value : 201,
+            severity : "success",
+            message : "Ahora eres usuario."
+        },
+        {
+            value : 409,
+            severity : "error",
+            message : "Ya existe una cuentra con este correo."
+        },
+        {
+            value: 500,
+            severity : "error",
+            message : "Perdón, hemos tenido un problema en nuestro servidor. Por favor intentalo de nuevo"
+        }
+
+    ]
+
+    const onSubmit = async (data) => {
+        const { email, password, name } = data;
+        try {
+            const user = await auth.register(email, password, name);
+            const { value } = await user;
+            console.log(value)
+            valueObj.find(err => {
+                if(err.value == value){
+                    return setError(err)
+                }
+            })
+        } catch (err) {
+            return false
+        }
     }
-
-
     return (
         <Box
             component="section"
@@ -42,7 +65,7 @@ const LoginForm = ({ setUser }) => {
                 px: 4
             }}
         >
-            {/* img */}
+            {/* title */}
             <Box
                 component="article"
                 display="flex"
@@ -54,7 +77,9 @@ const LoginForm = ({ setUser }) => {
                     height: "20svh"
                 }}
             >
-                <img src="src/assets/logos/logo_yard_sale.svg" />
+                <Typography variant="h1" component="h3">
+                    Register
+                </Typography>
             </Box>
 
             {/* form */}
@@ -69,6 +94,26 @@ const LoginForm = ({ setUser }) => {
                 }}
                 onSubmit={handleSubmit(onSubmit)}
             >
+                <TextField
+                    label="name"
+                    placeholder="your name"
+                    value="jesus"
+                    variant="filled"
+                    color="success"
+                    margin="dense"
+                    fullWidth
+                    autoFocus
+                    autoComplete="name"
+                    {...register('name', {
+                        required: "Este campo es requerido",
+                        pattern: {
+                            value: /^[a-z ,.'-]+$/i,
+                            message: "Ingrese un nombre valido"
+                        },
+
+                    })}
+                />
+                {(errors.name && <Alert severity="error"> {errors.email.message} </Alert>)}
                 <TextField
                     label="Email"
                     placeholder="youremail@example.com"
@@ -87,7 +132,7 @@ const LoginForm = ({ setUser }) => {
 
                     })}
                 />
-                {(errors.email && <Alert severity="error"> {errors.email.message} </Alert>)}
+                {(errors.email && <Alert severity="value"> {errors.email.message} </Alert>)}
 
                 <TextField
                     label="Password"
@@ -100,7 +145,7 @@ const LoginForm = ({ setUser }) => {
                     autoComplete="current-password"
                     {...register('password', {
                         required: "Este campo es requerido",
-                        pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d$@$!%*?&]{8,15}/,
+                        // pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d$@$!%*?&]{8,15}/,
                     })}
                 />
 
@@ -113,22 +158,17 @@ const LoginForm = ({ setUser }) => {
                     margin="dense"
                     size="large"
                 >
-                    Login
+                    Boton de registrar
                 </Button>
-                <Button
-                    href="/forgotpassword"
-                    variant="text"
-                    color="success"
-                    size="md"
-                    fullWidth
-                >
-                    Forgot my password
-                </Button>
+                {
+                    error && <Alert severity={error.severity}> {error.message}</Alert>
+                }
             </Box>
 
 
             <Button
-                href='/register'
+                href='/login'
+                type="submit"
                 color='success'
                 underline="none"
                 variant="outlined"
@@ -136,10 +176,10 @@ const LoginForm = ({ setUser }) => {
                 fullWidth
                 mt={6}
             >
-                Sign up
+                Register
             </Button>
         </Box>
-    );
+    )
 }
 
-export default LoginForm;
+export default RegisterUser
