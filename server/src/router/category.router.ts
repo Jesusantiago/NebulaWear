@@ -1,5 +1,6 @@
 import express, { Router } from 'express';
 import CatController from '../controllers/category.controller';
+import isAdmin from '../middleware/roleVerification';
 
 const router: Router = express.Router();
 
@@ -8,10 +9,10 @@ router.get('/', CatController.getAllCategories);
 // GET /categories/:id
 router.get('/:id', CatController.getCatById);
 // POST /categories
-router.post('/', CatController.createCategory);
+router.post('/', isAdmin, CatController.createCategory);
 // PATCH /categories/:id
-router.patch('/:id', CatController.updateCategory);
+router.patch('/:id', isAdmin, CatController.updateCategory);
 // DELETE /categories/:id
-router.delete('/:id', CatController.deleteCategory);
+router.delete('/:id', isAdmin, CatController.deleteCategory);
 
 export default router;
