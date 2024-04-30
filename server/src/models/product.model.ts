@@ -66,9 +66,17 @@ import Rating from "./rating.model";
     category!: Category
 
     @Column({
-      type: DataType.STRING
+      type: DataType.JSON,
+      allowNull: true,
+      defaultValue: [],
+      get: function () {
+        return JSON.parse(this.getDataValue('images'));
+      },
+      set: function (value) {
+        this.setDataValue('images', JSON.stringify(value));
+      },
     })
-	  declare image: string
+	  declare images: string[]
 
     @Column({
       type: DataType.BOOLEAN,

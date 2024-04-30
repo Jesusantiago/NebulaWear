@@ -2,14 +2,38 @@ import { Request, Response } from "express";
 import Product from "../models/product.model";
 import Category from "../models/category.model";
 import Rating from "../models/rating.model";
+import { Op } from "sequelize";
 
 class ProductController {
   static async getAllProducts(req: Request, res: Response) {
+
+    const { name, description, size, isFeatured, minPrice, maxPrice } = req.query;
+
+    const where: any = {};
+
+    if (name) {
+      where.name = { [Op.like]: `%${name}%` };
+    }
+
+    if (description) {
+      where.description = { [Op.like]: `%${description}%` };
+    }
+
+    if (req.query.minPrice && req.query.maxPrice) {
+      where.price = {
+        [Op.gte]: req.query.minPrice,
+        [Op.lte]: req.query.maxPrice,
+      };
+    }
+
+    if (isFeatured) {
+      where.isFeatured = 1;
+    }
     try {
-      const products = await Product.findAll({include: [Category]});
-      res.status(200).json(products);
+      const products = await Product.findAll({where, include: [Category]});
+      res.status(200).json({code: 200, products});
     } catch(err) {
-      res.status(500).json({ error: err.message });
+      res.status(500).json({ error: err.message, code: 500 });
     }
   }
 
@@ -19,17 +43,18 @@ class ProductController {
       const product = await Product.findByPk(productId,{include: [Category]});
 
       if(!product) {
-        res.status(404).json({ error: 'Product not found' });
+        res.status(404).json({ error: 'Product not found', code: 404 });
       }
-      res.status(200).json(product);
+      res.status(200).json({code: 200, product});
     } catch(err) {
-      res.status(500).json({ error: err.message });
+      res.status(500).json({ error: err.message, code: 500 });
     }
   }
 
   static async createProduct(req: Request, res: Response) {
     try {
-      const { name,description, size, color, price, category, image, isFeatured } = req.body;
+      const { name,description, size, color, price, category, isFeatured } = req.body;
+      const images = req.body.images as string [];
       const product = await Product.findOne({
         where: {
           name: name
@@ -37,7 +62,7 @@ class ProductController {
       })
 
       if (product) {
-        return res.status(409).json({ message: "El producto ingresado ya existe." });
+        return res.status(409).json({ message: "El producto ingresado ya existe.", code: 409 });
       }
 
       const newProduct = await Product.create({
@@ -47,51 +72,48 @@ class ProductController {
         color: color,
         price: price,
         category_id: category,
-        image: image,
+        images: images,
         isFeatured: isFeatured
       })
 
-      res.status(201).json({ message: 'Producto creado con éxito.', newProduct });
+      res.status(201).json({ message: 'Producto creado con éxito.', newProduct, code: 201 });
     } catch(err) {
-      res.status(500).json({ error: err.message });
+      res.status(500).json({ error: err.message, code: 500 });
     }
   }
 
   static async updateProduct(req: Request, res: Response) {
     try {
       const productId = req.params.id;
-      const product = await Product.findByPk(productId);
-
+      const {images}:{images: string[]} = req.body;
+      const product: Product | null = await Product.findByPk(productId);
+      const my_product_images = product.images as string[];
       if(!product) {
-        res.status(404).json({ error: 'Producto inexistente' });
+        res.status(404).json({ error: 'Producto inexistente', code: 404 });
       }
-
-      product.set({
+      if (images) {
+        console.log("Imagen antes de guardar " + product.images);
+        images.forEach(image => {
+          if (!my_product_images.includes(image)) {
+            my_product_images.push(image);
+          }
+        })
+      }
+      product.update({
         name: req.body.name,
         description: req.body.description || product.description,
         size: req.body.size || product.size,
         color: req.body.color || product.color,
-        price: parseFloat(req.body.price as string),
+        price: parseFloat(req.body.price as string) || product.price,
         category_id: req.body.category || product.category_id,
-        image: req.body.image || product.image
+        images: my_product_images
         //images: req.files ? [...product.images, ...(req.files as any[])] : product.images
       });
 
-      await product.save({ 
-        fields: [
-          'name',
-          'description', 
-          'size',  
-          'color',  
-          'price',  
-          'category_id',  
-          'image',
-          'isFeatured'
-        ]
-      });
-      res.status(200).json({ message: 'Datos actualizados exitosamente.' });
+      await product.save();
+      res.status(200).json({ message: 'Datos actualizados exitosamente.', code: 200 });
     } catch(err) {
-      res.status(500).json({ error: err.message });
+      res.status(500).json({ error: err.message, code: 500 });
     }
   }
 
@@ -105,12 +127,12 @@ class ProductController {
       })
       
       if (deletedCount != 1) {
-        res.status(404).json({ error: 'Product not found' });
+        res.status(404).json({ error: 'Product not found', code: 404 });
       }
 
-      res.status(200).json({ message: `El producto con ID '${productId}' fue borrado exitosamente.` });
+      res.status(200).json({ message: `El producto con ID '${productId}' fue borrado exitosamente.`, code: 200});
     } catch(err) {
-      res.status(500).json({ error: err.message });
+      res.status(500).json({ error: err.message, code: 500 });
     }
   }
 
@@ -133,9 +155,9 @@ class ProductController {
       const ratingd = Math.floor(totalRatings / ratings.length);
       await Product.update({rating: ratingd},{where: {id: newProductRating.product_id}});;
       
-      res.status(201).json({ message: 'Producto valorado con éxito.', newProductRating });
+      res.status(201).json({ message: 'Producto valorado con éxito.', newProductRating, code: 201 });
     } catch(err) {
-      res.status(500).json({ error: err.message });
+      res.status(500).json({ error: err.message, code: 500 });
     }
   }
 }
