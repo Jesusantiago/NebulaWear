@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-import { sendMail } from "../utils/email";
+//import bcrypt from 'bcrypt';
+//import jwt from 'jsonwebtoken';
+//import { sendMail } from "../utils/email";
 import User from "../models/users.model";
-import crypto from 'crypto';
+//import crypto from 'crypto';
 
 class AuthController {
   static async login(req: Request, res: Response) {
@@ -62,7 +62,7 @@ class AuthController {
   }
 
   static async recoverPassword(req: Request, res: Response) {
-    try{
+    /*try{
       const {email} = req.body;
       const user = await User.findOne({where:{email}});
       if(!user){
@@ -80,12 +80,12 @@ class AuthController {
       
     } catch (error){
       console.log(error);
-    }
+    }*/
   }
 
   static async resetPassword(req: Request, res: Response){
   
-    const {email, password, matchPassword} = req.body;
+    /*const {email, password, matchPassword} = req.body;
     const receivedToken = req.params.resetToken as string;
     const existUser = await User.findOne({
       where:{
@@ -103,7 +103,7 @@ class AuthController {
         return res.status(400).send({error: 'Las contraseñas no coinciden.', code: 400
       })}
       const hashedPassword = await bcrypt.hash(password, 10);
-      await existUser.update({ password : hashedPassword, reset_token: null});
+      await existUser.update({ password : hashedPassword, reset_token: null});*/
       res.status(200).json({message:"Contraseña actualizada correctamente.", code: 200})
     }
 }
