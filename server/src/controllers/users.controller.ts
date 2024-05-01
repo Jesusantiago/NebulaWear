@@ -16,7 +16,7 @@ class UserController {
 
   static async getUserById(req: Request, res: Response) {
     try {
-      const userId = req.params.id;
+      const userId: string = req.params.id;
       const user = await User.findByPk(userId, {
         attributes: { exclude: ['password'] }
       });
@@ -62,7 +62,7 @@ class UserController {
 
   static async updateUser(req: Request, res: Response) {
     try {
-      const userId = req.params.id;
+      const userId: string = req.params.id;
       const user = await User.findByPk(userId, {
         attributes: { exclude: ['password', 'email', 'role'] }
       });
