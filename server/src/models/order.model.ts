@@ -46,7 +46,7 @@ import User from "./users.model";
   
     @Column({
       type: DataType.STRING,
-      defaultValue: Date.now()
+      defaultValue: new Date(Date.now())
     })
     declare order_date: string;
 

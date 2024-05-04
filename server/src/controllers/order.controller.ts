@@ -7,11 +7,35 @@ import Product from "../models/product.model";
 class OrderController {
   static async getAllOrders(req: Request, res: Response) {
     try {
-      const orders = await Order.findAll({include: OrderProduct});
-      res.status(200).json({code: 200, orders});
-    } catch(err) {
-      res.status(500).json({code: 500, error: err.message });
-    }
+        const where: any = {};
+        /* Para implementar traer las ordenes por usuario de acuerdo al tipo de usuario
+         * Si el usuario es admin trae todas las ordenes, sino trae solo las ordenes del usuario en sesion
+        const dataRole = req.body
+        if(dataRole.role != "admin"){
+            where.user_id = dataRole.user_id;
+        }
+        */
+        const orders = await Order.findAll({
+            where,
+            include: [
+                {
+                    model: OrderProduct, 
+                    include:[
+                        {
+                            model: Product,
+                            attributes: ['name', 'size'],
+                        }
+                    ]
+                },
+                {
+                    model: User,
+                    attributes: ['name', 'lastname'],
+                }
+            ]});
+        res.status(200).json({code: 200, orders});
+        } catch(err) {
+        res.status(500).json({code: 500, error: err.message });
+        }
   }
 
   static async getOrderById(req: Request, res: Response) {
