@@ -6,7 +6,11 @@ async function isAdmin(req: Request, res: Response, next) {
     attributes: ['role'],
   });
   
-  if (user.role != 'admin') {
+  if(!user) {
+    return res.status(400).json({ message: "Missing user identifier in request body.", code: 400 });
+  }
+  
+  if(user.role != 'admin') {
     return res.status(401).json({ message: "No tienes permiso para ver esta página.", code: 401 })
   }
   next()
