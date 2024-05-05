@@ -4,7 +4,9 @@ import {
   Model, 
   DataType,
   IsEmail,
+  HasMany,
 } from "sequelize-typescript";
+import Review from "./reviews.model";
 
 @Table({
   timestamps: false,
@@ -59,6 +61,11 @@ class User extends Model {
     type: DataType.STRING
   })
   declare reset_token: string
+
+  @HasMany(() => Review , {
+    onDelete: 'CASCADE',
+  })
+  reviews: Review[];
 }
 
 export default User;
