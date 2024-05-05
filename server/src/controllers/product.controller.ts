@@ -138,24 +138,24 @@ class ProductController {
 
   static async rateProduct(req: Request, res: Response) {
     try {
-      const { product_id, rating_value } = req.body;
+      const rating_value  = req.body.rating_value as number;
+      const product_id = req.params.id as string;
   
       const newProductRating = await Rating.create({
         product_id: product_id,
-        rating_value: rating_value
+        rating_value: rating_value as number
       })
 
-      const product = await Product.findOne({where: {id:  newProductRating.product_id}});
+      let product = await Product.findOne({where: {id:  newProductRating.product_id}});
       const ratings = await Rating.findAll({ where: { product_id: newProductRating.product_id } });
       
       let totalRatings: number = product.rating 
       ratings.forEach(rating => {
         totalRatings+= rating.rating_value as number
       })
-      const ratingd = Math.floor(totalRatings / ratings.length);
-      await Product.update({rating: ratingd},{where: {id: newProductRating.product_id}});;
-      
-      res.status(201).json({ message: 'Producto valorado con éxito.', newProductRating, code: 201 });
+      const ratingUpdated = Math.floor(totalRatings / ratings.length);
+      await product.update({rating: ratingUpdated});
+      res.status(201).json({ message: 'Producto valorado con éxito.', code: 201 });
     } catch(err) {
       res.status(500).json({ error: err.message, code: 500 });
     }

@@ -14,7 +14,7 @@ router.post('/', isAdmin,ProductController.createProduct);
 router.patch('/:id', isAdmin,ProductController.updateProduct);
 // DELETE /products/:id
 router.delete('/:id',isAdmin, ProductController.deleteProduct);
-// POST /products/:id/rating
-router.post('/rating', ProductController.rateProduct)
+// POST /products/:id/rate
+router.post('/:id/rate', ProductController.rateProduct)
 
 export default router;
