@@ -30,8 +30,7 @@ class ReviewController {
       });
 
       if(!review) {
-        res.header('Content-Type', 'application/json; charset=utf-8');
-        res.status(404).json({ message: 'La reseña no existe.', code: 404 });
+        res.status(404).json({ message: 'Review does not exist.', code: 404 });
       }
 
       res.status(200).json({ review, code: 200 });
@@ -93,8 +92,7 @@ class ReviewController {
         user_id: user_id,
         product_id: product_id,
       })
-      res.header('Content-Type', 'application/json; charset=utf-8');
-      res.status(201).json({ message: 'Reseña creada con éxito.', code: 201})
+      res.status(201).json({ message: 'Review created successfully.', code: 201})
     } catch(err) {
       res.status(500).json({ error: err.message, code: 500 })
     }
@@ -102,12 +100,11 @@ class ReviewController {
 
   static async updateReview(req: Request, res: Response) {
     const reviewId = req.params.reviewId;
-    res.header('Content-Type', 'application/json; charset=utf-8');
     try {
       const review = await Review.findByPk(reviewId);
 
       if(!review) {
-        res.status(404).json({ error: 'La reseña no existe.', code: 404 });
+        res.status(404).json({ error: 'Review does not exist.', code: 404 });
       }
 
       review.set({
@@ -116,7 +113,7 @@ class ReviewController {
       await review.save({
         fields: ['comment'],
       });
-      res.status(200).json({ message: 'Reseña actualizada exitosamente.', code: 200 })
+      res.status(200).json({ message: 'Review updated successfully.', code: 200 })
     } catch (err) {
       res.status(500).json({ error: err.message, code: 500 })
     }
@@ -125,7 +122,6 @@ class ReviewController {
   static async deleteReview(req: Request, res: Response) {
     const reviewId = req.params.reviewId;
     const userId = req.body.userId;
-    res.header('Content-Type', 'application/json; charset=utf-8');
 
     try {
       const user = await User.findByPk(userId, {
@@ -133,17 +129,17 @@ class ReviewController {
       })
 
       if(userId != user.id && user.role != 'admin') {
-        res.status(403).json({ error: 'Acceso denegado.', code: 403 });
+        res.status(403).json({ error: 'Access denied.', code: 403 });
       }
 
       const deletedCount = await Review.destroy({
         where: { id: reviewId }
       })
       if(deletedCount != 1) {
-        res.status(404).json({ message: 'La reseña no existe.', code: 404 })
+        res.status(404).json({ message: 'Review does not exist.', code: 404 })
       }
 
-      res.status(200).json({ message: `La reseña con ID '${reviewId}' fue borrada exitosamente.`, code: 200 });
+      res.status(200).json({ message: `Review with ID '${reviewId}' was deleted successfully.`, code: 200 });
     } catch (err) {
       res.status(500).json({ error: err.message, code: 500 });
     }

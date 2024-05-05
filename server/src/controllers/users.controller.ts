@@ -21,7 +21,7 @@ class UserController {
       });
 
       if(!user) {
-        res.status(404).json({ error: 'El usuario no existe.' });
+        res.status(404).json({ error: 'User does not exist.' });
       }
       res.status(200).json({ user, code: 500 });
     } catch(err) {
@@ -39,7 +39,7 @@ class UserController {
       })
 
       if (user) {
-        return res.status(409).json({ message: "El email ingresado ya está vinculado a una cuenta existente.", code: 409 });
+        return res.status(409).json({ message: "Email is already linked to an account.", code: 409 });
       }
 
       const newUser = await User.create({
@@ -49,8 +49,7 @@ class UserController {
           role: 'admin',
           attributes: { exclude: ['password'] }
       });
-      res.header('Content-Type', 'application/json; charset=utf-8');
-      res.status(201).json({ message: 'Usuario creado con éxito.', newUser, code: 201 });
+      res.status(201).json({ message: 'User created successfully.', newUser, code: 201 });
     } catch(err) {
       res.status(500).json({ error: err.message, code: 500 });
     }
@@ -64,7 +63,7 @@ class UserController {
       });
 
       if(!user) {
-        res.status(404).json({ error: 'El usuario no existe.', code: 404 });
+        res.status(404).json({ error: 'User does not exist.', code: 404 });
       }
 
       const { name, lastname, address, phone } = req.body;
@@ -82,7 +81,7 @@ class UserController {
           'phone'
         ]
       });
-      res.status(200).json({ message: 'Datos actualizados exitosamente.', code: 200 });
+      res.status(200).json({ message: 'Information updated successfully.', code: 200 });
     } catch(err) {
       res.status(500).json({ error: err.message, code: 500 });
     }
@@ -98,10 +97,10 @@ class UserController {
       })
       
       if (deletedCount != 1) {
-        res.status(404).json({ error: 'El usuario no existe.', code: 404 });
+        res.status(404).json({ error: 'User does not exist.', code: 404 });
       }
 
-      res.status(200).json({ message: `El usuario con ID '${userId}' fue borrado exitosamente.`, code: 200 });
+      res.status(200).json({ message: `User with ID '${userId}' was deleted successfully.`, code: 200 });
     } catch(err) {
       res.status(500).json({ error: err.message, code: 500 });
     }

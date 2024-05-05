@@ -17,8 +17,7 @@ async function isAdmin(req: Request, res: Response, next) {
   }
   
   if(user.role != 'admin') {
-    res.header('Content-Type', 'application/json; charset=utf-8');
-    return res.status(401).json({ message: "No tienes permiso para ver esta página.", code: 401 })
+    return res.status(401).json({ message: "You do not have permission to view this page.", code: 401 })
   }
   next()
 }
