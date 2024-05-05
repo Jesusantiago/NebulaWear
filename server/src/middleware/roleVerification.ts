@@ -5,7 +5,7 @@ async function isAdmin(req: Request, res: Response, next) {
   const userId = req.body?.userId;
 
   if(!userId) {
-    return res.status(400).json({ message: "Please provide an ID.", code: 404 });
+    return res.status(400).json({ message: "Please provide an ID.", code: 400 });
   }
 
   const user = await User.findByPk(req.body.userId, {
