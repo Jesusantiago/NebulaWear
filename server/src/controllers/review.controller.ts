@@ -4,22 +4,38 @@ import User from "../models/users.model";
 import Product from "../models/product.model";
 
 class ReviewController {
-  static async getAllReviewsFromProduct(req: Request, res: Response) {
-    const productId = req.params.productId;
+  static async getAllReviews(req: Request, res: Response) {
     try {
-      const reviews = await Review.findAll({
-        where: {
-          product_id: productId,
-        },
+      const reviews = await Review.findAll();
+      res.status(200).json({ reviews, code: 200 });
+    } catch(err) {
+      res.status(500).json({ error: err.message, code: 500 });
+    }
+  }
+
+  static async getReviewById(req: Request, res: Response) {
+    const reviewId = req.params.reviewId;
+    try {
+      const review = await Review.findByPk(reviewId, {
         include: [
           {
+            model: Product,
+            attributes: ['name'],
+          },
+          {
             model: User,
-            attributes: ['name', 'lastname'],
+            attributes: ['name', 'lastname']
           }
         ],
       });
-      res.status(200).json({ reviews, code: 200 });
-    } catch (err) {
+
+      if(!review) {
+        res.header('Content-Type', 'application/json; charset=utf-8');
+        res.status(404).json({ message: 'La reseña no existe.', code: 404 });
+      }
+
+      res.status(200).json({ review, code: 200 });
+    } catch(err) {
       res.status(500).json({ error: err.message, code: 500 });
     }
   }
@@ -44,30 +60,22 @@ class ReviewController {
     }
   }
 
-  static async getReviewById(req: Request, res: Response) {
-    const reviewId = req.params.reviewId;
-
+  static async getAllReviewsFromProduct(req: Request, res: Response) {
+    const productId = req.params.productId;
     try {
-      const review = await Review.findByPk(reviewId, {
+      const reviews = await Review.findAll({
+        where: {
+          product_id: productId,
+        },
         include: [
           {
-            model: Product,
-            attributes: ['name'],
-          },
-          {
             model: User,
-            attributes: ['name', 'lastname']
+            attributes: ['name', 'lastname'],
           }
         ],
       });
-
-      if(!review) {
-        res.header('Content-Type', 'application/json; charset=utf-8');
-        res.status(404).json({ message: 'La reseña no existe.', code: 404 });
-      }
-
-      res.status(200).json({ review, code: 200 });
-    } catch(err) {
+      res.status(200).json({ reviews, code: 200 });
+    } catch (err) {
       res.status(500).json({ error: err.message, code: 500 });
     }
   }
@@ -95,7 +103,6 @@ class ReviewController {
   static async updateReview(req: Request, res: Response) {
     const reviewId = req.params.reviewId;
     res.header('Content-Type', 'application/json; charset=utf-8');
-
     try {
       const review = await Review.findByPk(reviewId);
 
