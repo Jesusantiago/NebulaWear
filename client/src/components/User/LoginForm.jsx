@@ -8,7 +8,7 @@ import { useAuth } from "../../context/isAuthContext";
 
 
 const LoginForm = ({ setUser }) => {
-    const [ data, setData ] = useState()
+    const [data, setData] = useState()
     const [error, setError] = useState(null)
     const auth = useAuth()
 
@@ -17,13 +17,14 @@ const LoginForm = ({ setUser }) => {
         handleSubmit,
         formState: { errors },
     } = useForm()
-
-    // @funcion { OnSubmit } Recibe los datos enviados desde el formulario.
-    // @parametro { data } la data que recibe desde el formulario
-    // @constante { email } extrae solamente el email de la data
-    const onSubmit = ( data ) => {      
+    /*
+         @funcion { OnSubmit } Recibe los datos enviados desde el formulario.
+         @parametro { data } la data que recibe desde el formulario
+         @constante { email } extrae solamente el email de la data
+    */
+    const onSubmit = (data) => {
         const { email, password } = data;
-        
+
         auth.login(email, password)
     }
 

@@ -13,10 +13,7 @@ const RegisterUser = () => {
         formState: { errors },
     } = useForm()
 
-    // @funcion { OnSubmit } Recibe los datos enviados desde el formulario.
-    // @parametro { data } la data que recibe desde el formulario
-    // @constante { email } extrae solamente el email de la data
-
+    // *@Objecto { valueObj } - Valores que deben ser presentado en el formulario por cualquier respuesta positiva o negativa. 
     const valueObj = [
         {
             value : 201,
@@ -33,15 +30,19 @@ const RegisterUser = () => {
             severity : "error",
             message : "Perdón, hemos tenido un problema en nuestro servidor. Por favor intentalo de nuevo"
         }
-
     ]
+
+    // *@funcion { OnSubmit } Recibe los datos enviados desde el formulario.
+    // *@parametro { data } la data que recibe desde el formulario
+    // *@funcion { auth.register } Función que ejecuta el registro en Firebase y server/api
 
     const onSubmit = async (data) => {
         const { email, password, name } = data;
         try {
             const user = await auth.register(email, password, name);
+            console.log(user)
             const { value } = await user;
-            console.log(value)
+            console.log(user)
             valueObj.find(err => {
                 if(err.value == value){
                     return setError(err)

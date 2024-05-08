@@ -12,7 +12,7 @@ export const apiRegister = async (user) => {
         })
     })
     .then((res) => {
-        return res.status
+        return res.status 
     })
     .then((data) => {
         return data
