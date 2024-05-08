@@ -40,24 +40,27 @@ class AuthController {
             }
           });
         if(user)  {
+          console.log(user)
             return res.status(409).json({message: "El email ingresado ya está vinculado a una cuenta existente."});
         }
-        const hashedPassword = await bcrypt.hash(password, 10);
+        // const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = await User.create({
             name: name,
-            lastname: lastname,
-            address: address,
-            phone: phone,
+            // lastname: lastname,
+            // address: address,
+            // phone: phone,
             email: email,
-            password: hashedPassword,
+            // password: hashedPassword,
             role: 'client',
-            attributes: { exclude: ['password'] }
+            // attributes: { exclude: ['password'] }
         });
         res.status(201).json({message: 'Usuario creado con éxito.',newUser});
     } catch(err) {
-      res.status(500).json({ error: err.message });
+      res.status(500).json({ error: "err.message" });
     }
   }
 }
+
+
 
 export default AuthController;
