@@ -11,6 +11,7 @@ import {
   } from "sequelize-typescript";
 import Category from "./category.model";
 import Rating from "./rating.model";
+import Review from "./reviews.model";
   
   export enum sizes {
     S = 'S',
@@ -99,6 +100,11 @@ import Rating from "./rating.model";
 
     @HasMany(() => Rating)
     ratings: Rating[];
+
+    @HasMany(() => Review, {
+      onDelete: 'CASCADE',
+    })
+    reviews: Review[];
 
     /*@AfterCreate
     static async calcularRating(product: Product) {

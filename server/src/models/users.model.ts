@@ -6,6 +6,8 @@ import {
   IsEmail,
   HasMany,
 } from "sequelize-typescript";
+
+import Review from "./reviews.model";
 import Rating from "./rating.model";
 import Order from "./order.model";
 
@@ -62,6 +64,11 @@ class User extends Model {
     type: DataType.STRING
   })
   declare reset_token: string
+
+  @HasMany(() => Review , {
+    onDelete: 'CASCADE',
+  })
+  reviews: Review[];
 
   @HasMany(() => Rating, {
     onDelete: 'CASCADE',
