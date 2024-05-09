@@ -81,16 +81,16 @@ class ReviewController {
 
   static async createReview(req: Request, res: Response) {
     try {
-      const { comment, user_id, product_id } = req.body;
+      const { comment, userId, productId } = req.body;
 
-      if(!user_id || !product_id) {
+      if(!userId || !productId) {
         res.status(400).json({ message: 'Missing user or product identifiers.', code: 400 })
       }
 
       await Review.create({
         comment: comment,
-        user_id: user_id,
-        product_id: product_id,
+        user_id: userId,
+        product_id: productId,
       })
       res.status(201).json({ message: 'Review created successfully.', code: 201})
     } catch(err) {
@@ -128,7 +128,7 @@ class ReviewController {
         attributes: ['role'],
       })
 
-      if(userId != user.id && user.role != 'admin') {
+      if(!user && user.role != 'admin') {
         res.status(403).json({ error: 'Access denied.', code: 403 });
       }
 
