@@ -1,32 +1,24 @@
 import express, { Request, Response, Router } from 'express';
+import OrderController from '../controllers/order.controller';
+import isAdmin from '../middleware/roleVerification';
 
 const router: Router = express.Router();
 
 // Define your routes here
 
 // GET /orders
-router.get('/', (req: Request, res: Response) => {
-    // Handle GET request for all orders
-});
+router.get('/', OrderController.getAllOrders);
 
 // GET /orders/:id
-router.get('/:id', (req: Request, res: Response) => {
-    // Handle GET request for a specific order
-});
+router.get('/:id', OrderController.getOrderById);
 
 // POST /orders
-router.post('/', (req: Request, res: Response) => {
-    // Handle POST request to create a new order
-});
+router.post('/', OrderController.createOrder);
 
 // PUT /orders/:id
-router.put('/:id', (req: Request, res: Response) => {
-    // Handle PUT request to update a specific order
-});
+router.put('/:id', OrderController.updateOrder);
 
 // DELETE /orders/:id
-router.delete('/:id', (req: Request, res: Response) => {
-    // Handle DELETE request to delete a specific order
-});
+router.delete('/:id', isAdmin ,OrderController.deleteOrder);
 
 export default router;

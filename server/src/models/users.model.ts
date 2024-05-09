@@ -6,7 +6,10 @@ import {
   IsEmail,
   HasMany,
 } from "sequelize-typescript";
+
 import Review from "./reviews.model";
+import Rating from "./rating.model";
+import Order from "./order.model";
 
 @Table({
   timestamps: false,
@@ -66,6 +69,16 @@ class User extends Model {
     onDelete: 'CASCADE',
   })
   reviews: Review[];
+
+  @HasMany(() => Rating, {
+    onDelete: 'CASCADE',
+  })
+  ratings: Rating[];
+
+  @HasMany(() => Order, {
+    onDelete: 'CASCADE',
+  })
+  orders: Order[];
 }
 
 export default User;
