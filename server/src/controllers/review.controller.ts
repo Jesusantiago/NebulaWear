@@ -30,7 +30,7 @@ class ReviewController {
       });
 
       if(!review) {
-        res.status(404).json({ message: 'Review does not exist.', code: 404 });
+        return res.status(404).json({ message: 'Review does not exist.', code: 404 });
       }
 
       res.status(200).json({ review, code: 200 });
@@ -69,7 +69,7 @@ class ReviewController {
         include: [
           {
             model: User,
-            attributes: ['name', 'lastname'],
+            attributes: ['name'],
           }
         ],
       });
@@ -84,7 +84,7 @@ class ReviewController {
       const { comment, userId, productId } = req.body;
 
       if(!userId || !productId) {
-        res.status(400).json({ message: 'Missing user or product identifiers.', code: 400 })
+        return res.status(400).json({ message: 'Missing user or product identifiers.', code: 400 })
       }
 
       await Review.create({
@@ -104,7 +104,7 @@ class ReviewController {
       const review = await Review.findByPk(reviewId);
 
       if(!review) {
-        res.status(404).json({ error: 'Review does not exist.', code: 404 });
+        return res.status(404).json({ error: 'Review does not exist.', code: 404 });
       }
 
       review.set({
@@ -129,14 +129,14 @@ class ReviewController {
       })
 
       if(!user && user.role != 'admin') {
-        res.status(403).json({ error: 'Access denied.', code: 403 });
+        return res.status(403).json({ error: 'Access denied.', code: 403 });
       }
 
       const deletedCount = await Review.destroy({
         where: { id: reviewId }
       })
       if(deletedCount != 1) {
-        res.status(404).json({ message: 'Review does not exist.', code: 404 })
+        return res.status(404).json({ message: 'Review does not exist.', code: 404 })
       }
 
       res.status(200).json({ message: `Review with ID '${reviewId}' was deleted successfully.`, code: 200 });

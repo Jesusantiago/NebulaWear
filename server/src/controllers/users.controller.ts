@@ -21,7 +21,7 @@ class UserController {
       });
 
       if(!user) {
-        res.status(404).json({ error: 'User does not exist.' });
+        return res.status(404).json({ error: 'User does not exist.' });
       }
       res.status(200).json({ user, code: 500 });
     } catch(err) {
@@ -63,7 +63,7 @@ class UserController {
       });
 
       if(!user) {
-        res.status(404).json({ error: 'User does not exist.', code: 404 });
+        return res.status(404).json({ error: 'User does not exist.', code: 404 });
       }
 
       const { name, lastname, address, phone } = req.body;
@@ -97,7 +97,7 @@ class UserController {
       })
       
       if (deletedCount != 1) {
-        res.status(404).json({ error: 'User does not exist.', code: 404 });
+        return res.status(404).json({ error: 'User does not exist.', code: 404 });
       }
 
       res.status(200).json({ message: `User with ID '${userId}' was deleted successfully.`, code: 200 });
