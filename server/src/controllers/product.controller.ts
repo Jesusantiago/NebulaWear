@@ -3,6 +3,8 @@ import Product from "../models/product.model";
 import Category from "../models/category.model";
 import Rating from "../models/rating.model";
 import { Op } from "sequelize";
+import User from "../models/users.model";
+import Order from "../models/order.model";
 
 class ProductController {
   static async getAllProducts(req: Request, res: Response) {
@@ -62,7 +64,7 @@ class ProductController {
       })
 
       if (product) {
-        return res.status(409).json({ message: "El producto ingresado ya existe.", code: 409 });
+        return res.status(409).json({ message: "Product already exist.", code: 409 });
       }
 
       const newProduct = await Product.create({
@@ -76,7 +78,7 @@ class ProductController {
         isFeatured: isFeatured
       })
 
-      res.status(201).json({ message: 'Producto creado con éxito.', newProduct, code: 201 });
+      res.status(201).json({ message: 'Product created successfully.', newProduct, code: 201 });
     } catch(err) {
       res.status(500).json({ error: err.message, code: 500 });
     }
@@ -89,10 +91,9 @@ class ProductController {
       const product: Product | null = await Product.findByPk(productId);
       const my_product_images = product.images as string[];
       if(!product) {
-        res.status(404).json({ error: 'Producto inexistente', code: 404 });
+        res.status(404).json({ error: 'Producto does not exist', code: 404 });
       }
       if (images) {
-        console.log("Imagen antes de guardar " + product.images);
         images.forEach(image => {
           if (!my_product_images.includes(image)) {
             my_product_images.push(image);
@@ -111,7 +112,7 @@ class ProductController {
       });
 
       await product.save();
-      res.status(200).json({ message: 'Datos actualizados exitosamente.', code: 200 });
+      res.status(200).json({ message: 'Product updated successfully.', code: 200 });
     } catch(err) {
       res.status(500).json({ error: err.message, code: 500 });
     }
@@ -130,7 +131,7 @@ class ProductController {
         res.status(404).json({ error: 'Product not found', code: 404 });
       }
 
-      res.status(200).json({ message: `El producto con ID '${productId}' fue borrado exitosamente.`, code: 200});
+      res.status(200).json({ message: `Product with ID '${productId}' was deleted successfully.`, code: 200});
     } catch(err) {
       res.status(500).json({ error: err.message, code: 500 });
     }
@@ -138,24 +139,34 @@ class ProductController {
 
   static async rateProduct(req: Request, res: Response) {
     try {
-      const { product_id, rating_value } = req.body;
+      const rating_value  = req.body.rating_value as number;
+      const user_id  = req.body.user as number;
+      const product_id = req.params.id as string;
+      //Validate user
+      const existingUser = await User.findByPk(user_id);
+      if(!existingUser) return res.status(400).json({ message: 'Invalid user.', code: 400 });
+      //Validate product
+      const existingProduct = await Product.findByPk(product_id);
+      if(!existingProduct) return res.status(400).json({ message: 'Invalid product.', code: 400 });
+      //Validate user buy the product
+      const userOrderWithProduct = await Order.findOne({where:{product_id: product_id}});
+      if(!userOrderWithProduct) return res.status(403).json({ message: 'You are not allowed to rate this product.', code: 403 });
   
       const newProductRating = await Rating.create({
         product_id: product_id,
-        rating_value: rating_value
+        user_id: user_id,
+        rating_value: rating_value as number
       })
 
-      const product = await Product.findOne({where: {id:  newProductRating.product_id}});
       const ratings = await Rating.findAll({ where: { product_id: newProductRating.product_id } });
       
-      let totalRatings: number = product.rating 
+      let totalRatings: number = existingProduct.rating 
       ratings.forEach(rating => {
         totalRatings+= rating.rating_value as number
       })
-      const ratingd = Math.floor(totalRatings / ratings.length);
-      await Product.update({rating: ratingd},{where: {id: newProductRating.product_id}});;
-      
-      res.status(201).json({ message: 'Producto valorado con éxito.', newProductRating, code: 201 });
+      const ratingUpdated = Math.floor(totalRatings / ratings.length);
+      await existingProduct.update({rating: ratingUpdated});
+      res.status(201).json({ message: 'Product rated successfully.', code: 201 });
     } catch(err) {
       res.status(500).json({ error: err.message, code: 500 });
     }

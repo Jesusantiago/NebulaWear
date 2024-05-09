@@ -10,6 +10,7 @@ import {
     AfterCreate,
   } from "sequelize-typescript";
 import Product from "./product.model";
+import User from "./users.model";
   
   @Table({
     timestamps: false,
@@ -24,6 +25,14 @@ import Product from "./product.model";
       defaultValue: DataType.UUIDV4,
     })
     declare id: string;
+    
+    @AllowNull(false)
+    @ForeignKey(() => User)
+    @Column({ type: DataType.UUID })
+    user_id!: string
+
+    @BelongsTo(() => User)
+    user!: User
     
     @AllowNull(false)
     @ForeignKey(() => Product)

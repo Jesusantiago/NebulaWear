@@ -90,6 +90,13 @@ import Rating from "./rating.model";
     })
     declare rating: number;
 
+    @AllowNull(false)
+    @Column({
+      type: DataType.INTEGER,
+      defaultValue: 0
+    })
+    declare stock: number;
+
     @HasMany(() => Rating)
     ratings: Rating[];
 

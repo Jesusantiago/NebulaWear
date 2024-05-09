@@ -4,7 +4,10 @@ import {
   Model, 
   DataType,
   IsEmail,
+  HasMany,
 } from "sequelize-typescript";
+import Rating from "./rating.model";
+import Order from "./order.model";
 
 @Table({
   timestamps: false,
@@ -59,6 +62,16 @@ class User extends Model {
     type: DataType.STRING
   })
   declare reset_token: string
+
+  @HasMany(() => Rating, {
+    onDelete: 'CASCADE',
+  })
+  ratings: Rating[];
+
+  @HasMany(() => Order, {
+    onDelete: 'CASCADE',
+  })
+  orders: Order[];
 }
 
 export default User;

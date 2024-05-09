@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import User from "../models/users.model";
+import Rating from "../models/rating.model";
+import Order from "../models/order.model";
 
 class UserController {
   static async getAllUsers(req: Request, res: Response) {
@@ -18,7 +20,8 @@ class UserController {
     try {
       const userId: string = req.params.id;
       const user = await User.findByPk(userId, {
-        attributes: { exclude: ['password'] }
+        attributes: { exclude: ['password'] },
+        include: [Rating,Order]
       });
 
       if(!user) {
