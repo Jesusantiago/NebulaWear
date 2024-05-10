@@ -19,7 +19,7 @@ export const useAuth = () => {
 }
 
 export const AuthProvider = ({ children }) => {
-  const [userCurrent, setUserCurrent] = useState({})
+  const [userCurrent, setUserCurrent] = useState(null)
   // @const estado si hay o no un usuario logeado
 
   // useEffect(() => {
