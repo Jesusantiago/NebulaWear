@@ -4,7 +4,12 @@ import {
   Model, 
   DataType,
   IsEmail,
+  HasMany,
 } from "sequelize-typescript";
+
+import Review from "./reviews.model";
+import Rating from "./rating.model";
+import Order from "./order.model";
 
 @Table({
   timestamps: false,
@@ -14,8 +19,7 @@ import {
 class User extends Model {
   @Column({
     primaryKey: true,
-    type: DataType.UUID,
-    defaultValue: DataType.UUIDV4,
+    type: DataType.STRING,
   })
   declare id: string;
 
@@ -55,6 +59,26 @@ class User extends Model {
     defaultValue: 'client',
   })
   declare role: 'client' | 'admin';
+
+  @Column({
+    type: DataType.STRING
+  })
+  declare reset_token: string
+
+  @HasMany(() => Review , {
+    onDelete: 'CASCADE',
+  })
+  reviews: Review[];
+
+  @HasMany(() => Rating, {
+    onDelete: 'CASCADE',
+  })
+  ratings: Rating[];
+
+  @HasMany(() => Order, {
+    onDelete: 'CASCADE',
+  })
+  orders: Order[];
 }
 
 export default User;
