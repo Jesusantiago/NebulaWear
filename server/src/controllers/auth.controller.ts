@@ -45,6 +45,21 @@ class AuthController {
             }
           });
         if(user)  {
+
+          console.log(user)
+            return res.status(409).json({message: "El email ingresado ya está vinculado a una cuenta existente."});
+        }
+        // const hashedPassword = await bcrypt.hash(password, 10);
+        const newUser = await User.create({
+            name: name,
+            // lastname: lastname,
+            // address: address,
+            // phone: phone,
+            email: email,
+            // password: hashedPassword,
+            role: 'client',
+            // attributes: { exclude: ['password'] }
+=======
             return res.status(409).json({message: "El email ingresado ya está vinculado a una cuenta existente.", code: 409});
         }
         //const hashedPassword = await bcrypt.hash(password, 10);
@@ -53,11 +68,12 @@ class AuthController {
             name: name,
             email: email,
             role: 'client'
+
         });
         delete newUser.password;
         res.status(201).json({message: 'Usuario creado con éxito.',code: 201, newUser});
     } catch(err) {
-      res.status(500).json({ error: err.message });
+      res.status(500).json({ error: "err.message" });
     }
   }
 
@@ -107,5 +123,7 @@ class AuthController {
       res.status(200).json({message:"Contraseña actualizada correctamente.", code: 200})
     }
 }
+
+
 
 export default AuthController;

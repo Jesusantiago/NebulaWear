@@ -1,11 +1,16 @@
 import express from 'express';
 import routerApi from './router/index';
 import sequelize from './config/sequelize';
+import cors from "cors"
 
 const PORT = parseInt(process.env.PORT as string, 10) || 3000;
 
 const app = express();
 app.use(express.json())
+app.use(cors({
+    origin: 'http://localhost:5173',
+    credentials: true
+  }));
 
 routerApi(app);
 
