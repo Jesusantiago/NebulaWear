@@ -1,4 +1,3 @@
-import { AddShoppingCart } from '@mui/icons-material';
 import imgProduct from "../../assets/imgs/image.png";
 
 const Product = () => {

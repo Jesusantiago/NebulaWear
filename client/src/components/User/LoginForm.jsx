@@ -1,14 +1,12 @@
 // @libreria { react-hook-form } encargada de manejar los datos del formulario.
 // @documentacion https://react-hook-form.com/get-started
 import { useForm } from "react-hook-form";
-import { Box, TextField, Button, Alert } from "@mui/material";
-import { Navigate } from "react-router-dom";
+import { Container, Row, Col, Button, Image, Form } from "react-bootstrap";
 import { useState } from "react";
 import { useAuth } from "../../context/isAuthContext";
 
 
-const LoginForm = ({ setUser }) => {
-    const [data, setData] = useState()
+const LoginForm = () => {
     const [error, setError] = useState(null)
     const auth = useAuth()
 
@@ -24,7 +22,6 @@ const LoginForm = ({ setUser }) => {
     */
     const onSubmit = (data) => {
         const { email, password } = data;
-
         auth.login(email, password)
     }
 
@@ -33,112 +30,79 @@ const LoginForm = ({ setUser }) => {
         auth.loginWithGoogle()
     }
 
-
-
-
-    return (
-        <Box
-            component="section"
-            display="flex"
-            flexDirection="column"
-            justifyContent="space-between"
-            alignItems="center"
-            sx={{
-                minHeight: "100svh",
-                width: 1,
-                py: 6,
-                px: 4
-            }}
+    return (    
+        <Container
+            as = "section"
+            className="d-flex flex-column justify-content-between home-login"
         >
-            {/* img */}
-            <Box
-                component="article"
-                display="flex"
-                alignItems="end"
-                justifyContent="center"
+            <Row className="h-25">
+                <Col xs="8" md="auto d-flex justify-content-center align-items-center">
+                    <Image className="img-Logo" src="src/assets/logos/logo_yard_sale.svg" fluid />
+                </Col>
+            </Row>
 
-                sx={{
-                    minWidth: 1,
-                    height: "20svh"
-                }}
-            >
-                <img src="src/assets/logos/logo_yard_sale.svg" />
-            </Box>
-
+            
+        <Row>
+            <Col xs={12}>
             {/* form */}
-            <Box
-                component="form"
-                display="flex"
-                flexDirection="column"
-                justifyContent="space-between"
-                sx={{
-                    width: 1,
-                    height: "35svh"
-                }}
+            <Form
                 onSubmit={handleSubmit(onSubmit)}
-            >
-                <TextField
-                    label="Email"
-                    placeholder="youremail@example.com"
-                    variant="filled"
-                    color="success"
-                    margin="dense"
-                    fullWidth
-                    autoFocus
-                    autoComplete="email"
-                    {...register('email', {
-                        required: "Este campo es requerido",
-                        pattern: {
-                            value: /[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,5}/,
-                            message: "Intenta introduciendo un correo electronico"
-                        },
+                >
+                <Form.Group>
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control
+                        type="Email"
+                        placeholder="youemailhere@example.com"
+                        {...register('email', {
+                            required: "Este campo es requerido",
+                            pattern: {
+                                value: /[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,5}/,
+                                message: "Intenta introduciendo un correo electronico"
+                            },
+                            
+                        })}/>
 
-                    })}
-                />
+                </Form.Group>
                 {(errors.email && <Alert severity="error"> {errors.email.message} </Alert>)}
 
-                <TextField
-                    label="Password"
-                    type="password"
+                <Form.Group>
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control type="password" 
                     placeholder="........."
-                    variant="filled"
-                    color="success"
-                    margin="dense"
-                    fullWidth
-                    autoComplete="current-password"
                     {...register('password', {
                         required: "Este campo es requerido",
                         pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d$@$!%*?&]{8,15}/,
                     })}
-                />
-
+                    />
+                </Form.Group>
                 {(errors.password && <Alert severity="error"> {errors.password.message} </Alert>)}
 
                 <Button
-                    variant="contained"
                     type="submit"
-                    color="success"
-                    margin="dense"
-                    size="large"
-                >
+                    variant="primary" 
+                    size="lg"
+                    className="w-100"
+                    >
                     Login
                 </Button>
                 <Button
                     href="/forgotpassword"
-                    variant="text"
-                    color="success"
-                    size="md"
-                    fullWidth
-                >
+                    variant="outline-primary"
+                    size="lg"
+                    className="w-100"
+                    >
                     Forgot my password
                 </Button>
 
-            </Box>
+            </Form>
+            </Col>
+
+
 
                 <Button 
-                    class="button-google"
+                    className="button-google w-100"
                     onClick={(e) => handleGoogle(e)}
-                >
+                    >
                     <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" viewBox="0 0 256 262">
                         <path fill="#4285F4" d="M255.878 133.451c0-10.734-.871-18.567-2.756-26.69H130.55v48.448h71.947c-1.45 12.04-9.283 30.172-26.69 42.356l-.244 1.622 38.755 30.023 2.685.268c24.659-22.774 38.875-56.282 38.875-96.027"></path>
                         <path fill="#34A853" d="M130.55 261.1c35.248 0 64.839-11.605 86.453-31.622l-41.196-31.913c-11.024 7.688-25.82 13.055-45.257 13.055-34.523 0-63.824-22.773-74.269-54.25l-1.531.13-40.298 31.187-.527 1.465C35.393 231.798 79.49 261.1 130.55 261.1"></path>
@@ -148,18 +112,15 @@ const LoginForm = ({ setUser }) => {
                     Continue with Google
                 </Button>
 
+                </Row>
+
             <Button
                 href='/register'
-                color='success'
-                underline="none"
-                variant="outlined"
-                size="large"
-                fullWidth
-                mt={6}
+                className="w-100"
             >
                 Sign up
             </Button>
-        </Box>
+        </Container>
     );
 }
 

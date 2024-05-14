@@ -1,8 +1,6 @@
-import Navbar from './components/App/Navbar';
-import SearchIcon from '@mui/icons-material/Search';
-import Product  from "./components/Product/Product";
-import { useAuth } from "./context/isAuthContext";
-import "./index.css"
+import Navbar from './Navbar';
+import Product  from "../Product/Product";
+import { useAuth } from "../../context/isAuthContext";
 // import './styles/home.css';
 // import './styles/login.css';
 // import './styles/passRecovery.css';
