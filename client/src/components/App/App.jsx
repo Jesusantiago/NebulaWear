@@ -1,16 +1,11 @@
 import Navbar from './Navbar';
 import Product  from "../Product/Product";
 import { useAuth } from "../../context/isAuthContext";
-// import './styles/home.css';
-import './styles/login.css';
-// import './styles/passRecovery.css';
-// import './styles/product.css';
-// - - -
 
 const SearchBox = () => {
   return (
     <div className="searchBox">
-      <SearchIcon />
+      {/* <SearchIcon /> */}
       <input type="text" placeholder="Search product" />
     </div>
   );

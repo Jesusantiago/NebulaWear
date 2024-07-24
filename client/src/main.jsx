@@ -1,3 +1,4 @@
+import CssBaseline from '@mui/material/CssBaseline';
 import { BrowserRouter } from "react-router-dom";
 import AppRouter from './routes/AppRouter.jsx';
 import ReactDOM from 'react-dom/client'
@@ -16,8 +17,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthProvider>
+        <CssBaseline/>
         <AppRouter/>
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>,
 )
+

@@ -11,7 +11,7 @@ const Product = () => {
                     <span className="title">Round shelf</span>
                 </div>
                 <button className="addToCart">
-                    <AddShoppingCart />
+                    {/* <AddShoppingCart /> */}
                 </button>
             </div>
         </a>
