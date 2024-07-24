@@ -29,6 +29,12 @@ const LoginForm = () => {
         e.preventDefault()
         auth.loginWithGoogle()
     }
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 172f882026853e7c36b5efff27005897d090a9fa
 
     return (    
         <Container
@@ -93,6 +99,7 @@ const LoginForm = () => {
                     >
                     Forgot my password
                 </Button>
+<<<<<<< HEAD
 
             </Form>
             </Col>
@@ -103,6 +110,15 @@ const LoginForm = () => {
                     className="button-google w-100"
                     onClick={(e) => handleGoogle(e)}
                     >
+=======
+
+            </Box>
+
+                <Button 
+                    class="button-google"
+                    onClick={(e) => handleGoogle(e)}
+                >
+>>>>>>> 172f882026853e7c36b5efff27005897d090a9fa
                     <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" viewBox="0 0 256 262">
                         <path fill="#4285F4" d="M255.878 133.451c0-10.734-.871-18.567-2.756-26.69H130.55v48.448h71.947c-1.45 12.04-9.283 30.172-26.69 42.356l-.244 1.622 38.755 30.023 2.685.268c24.659-22.774 38.875-56.282 38.875-96.027"></path>
                         <path fill="#34A853" d="M130.55 261.1c35.248 0 64.839-11.605 86.453-31.622l-41.196-31.913c-11.024 7.688-25.82 13.055-45.257 13.055-34.523 0-63.824-22.773-74.269-54.25l-1.531.13-40.298 31.187-.527 1.465C35.393 231.798 79.49 261.1 130.55 261.1"></path>
@@ -111,8 +127,11 @@ const LoginForm = () => {
                     </svg>
                     Continue with Google
                 </Button>
+<<<<<<< HEAD
 
                 </Row>
+=======
+>>>>>>> 172f882026853e7c36b5efff27005897d090a9fa
 
             <Button
                 href='/register'
