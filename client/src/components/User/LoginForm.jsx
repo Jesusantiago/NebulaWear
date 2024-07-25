@@ -2,13 +2,11 @@
 // @documentacion https://react-hook-form.com/get-started
 import { useForm } from "react-hook-form";
 import { Box, TextField, Button, Alert } from "@mui/material";
-import { Navigate } from "react-router-dom";
 import { useState } from "react";
 import { useAuth } from "../../context/isAuthContext";
 
 
-const LoginForm = ({ setUser }) => {
-    const [data, setData] = useState()
+const LoginForm = () => {
     const [error, setError] = useState(null)
     const auth = useAuth()
 
@@ -24,7 +22,6 @@ const LoginForm = ({ setUser }) => {
     */
     const onSubmit = (data) => {
         const { email, password } = data;
-
         auth.login(email, password)
     }
 
@@ -32,11 +29,8 @@ const LoginForm = ({ setUser }) => {
         e.preventDefault()
         auth.loginWithGoogle()
     }
-
-
-
-
-    return (
+    
+    return (    
         <Box
             component="section"
             display="flex"

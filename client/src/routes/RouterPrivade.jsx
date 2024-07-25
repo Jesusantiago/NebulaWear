@@ -1,4 +1,4 @@
-import App from "../App";
+import App from "../components/App/App.jsx";
 import ProductDetails  from "../components/Product/ProductDetails.jsx";
 
 // @Array { RouterPublic } Array de objecto donde estaran todas las rutas publicas.

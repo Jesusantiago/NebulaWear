@@ -1,18 +1,11 @@
-import Navbar from './components/App/Navbar';
-import SearchIcon from '@mui/icons-material/Search';
-import Product  from "./components/Product/Product";
-import { useAuth } from "./context/isAuthContext";
-import "./index.css"
-// import './styles/home.css';
-import './styles/login.css';
-// import './styles/passRecovery.css';
-// import './styles/product.css';
-// - - -
+import Navbar from './Navbar';
+import Product  from "../Product/Product";
+import { useAuth } from "../../context/isAuthContext";
 
 const SearchBox = () => {
   return (
     <div className="searchBox">
-      <SearchIcon />
+      {/* <SearchIcon /> */}
       <input type="text" placeholder="Search product" />
     </div>
   );

@@ -1,14 +1,8 @@
 // @libreria react-router-dom encargada de manejar las rutas de la app
 // @documentation https://reactrouter.com/en/main
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-
-import LoginForm from "../components/User/LoginForm";
+import { Routes, Route, Navigate } from "react-router-dom";
 import RouterPublic from "./RouterPublic";
 import RouterPrivade from "./RouterPrivade";
-import { useEffect, useState } from "react";
-import RecoveryPasswordForm from "../components/User/RecoveryPasswordForm";
-import RegisterUser from "../components/User/RegisterUser";
-import { ImportContacts } from "@mui/icons-material";
 import { useAuth } from "../context/isAuthContext";
 
 /*
@@ -48,9 +42,10 @@ const AppRouter = () => {
 
     return (
         <>
-            {!userCurrent
+            {userCurrent
                 ? <Routes>
                     {getRoutesPublic(RouterPublic)}
+                    {console.log("hola")}
                     <Route path="*" element={<Navigate to="/login" replace />} />
                 </Routes>
                 : <Routes>

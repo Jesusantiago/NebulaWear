@@ -1,4 +1,3 @@
-import { AddShoppingCart } from '@mui/icons-material';
 import imgProduct from "../../assets/imgs/image.png";
 
 const Product = () => {
@@ -12,7 +11,7 @@ const Product = () => {
                     <span className="title">Round shelf</span>
                 </div>
                 <button className="addToCart">
-                    <AddShoppingCart />
+                    {/* <AddShoppingCart /> */}
                 </button>
             </div>
         </a>

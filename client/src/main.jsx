@@ -10,15 +10,17 @@ import '@fontsource/roboto/700.css';
 import { AuthProvider } from './context/isAuthContext.jsx';
 import "./styles/Css/style.css"
 
+
   // * @Compoenente {AppRouter} encargado de realizar la verificación del usuario.
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthProvider>
-        <CssBaseline />
+        <CssBaseline/>
         <AppRouter/>
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>,
 )
+
