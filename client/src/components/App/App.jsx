@@ -35,20 +35,10 @@ function App() {
   return (
     <>
       <Navbar />
-      <main>
-        <SearchBox />
-        <Categories />
-        
+
+      <main>        
         <section className="main">
-          <div className="filter">
-            <span>Order:</span>
-            {/* <select name="select">
-              <option value="value1" selected>Most recent</option>
-              <option value="value2">Value 2</option>
-              <option value="value3">Value 3</option>
-            </select> */}
-          </div>
-        <button type='button' onClick={logoutComponent} > Cerrar sesion</button>
+
 
 
           <div className="productList">
@@ -61,7 +51,12 @@ function App() {
           </div>
         </section>
 
+
         
+        <button type='button' onClick={logoutComponent} > Cerrar sesion</button>
+
+      
+
       </main>
     </>
   )

@@ -7,23 +7,25 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import PersonIcon from '@mui/icons-material/Person2';
-
 const pages = ['Productos', 'Precios', 'Ofertas'];
 const settings = ['Mi perfil', 'Mis compras', 'Mis favoritos', 'Cerrar sesión'];
 
 const Navbar = () => {
+  //Estados para los modales
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
+
+  //Funciones que ejecutan abrir o cerrar los modales.
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
+
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -37,15 +39,16 @@ const Navbar = () => {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" color='transparent'>
 
       <Container maxWidth="xl">
 
         <Toolbar disableGutters>
 
-
+          {/* Icono de Android para desktop */}
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
 
+          {/* Nombre de la tienda, para desktop */}
           <Typography
             variant="h6"
             noWrap
@@ -63,7 +66,8 @@ const Navbar = () => {
           >
             NEBULA WEAR
           </Typography>
-
+          
+          {/* Boton de hamburgesa para mobile */}
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -101,8 +105,10 @@ const Navbar = () => {
             </Menu>
           </Box>
 
+            {/* Icono de Android mobile */}
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
 
+              {/* Nombre de la tienda para mobile */}
           <Typography
             variant="h5"
             noWrap
@@ -122,18 +128,29 @@ const Navbar = () => {
             NEBULA WEAR
           </Typography>
 
+            {/* Boton de Search */}
+          <Box >
+            <Tooltip title="Search">
+                <IconButton>
+                    <Search />
+                </IconButton>
+            </Tooltip>
+          </Box>
+
+            {/* Botones con cada titulo de pagina */}
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                sx={{ my: 2, color: 'black', display: 'block' }}
               >
                 {page}
               </Button>
             ))}
           </Box>
 
+            {/* Boton de avatar */}
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
