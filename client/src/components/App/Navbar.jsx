@@ -12,6 +12,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import PersonIcon from '@mui/icons-material/Person2';
+import Search from './Search';
 const pages = ['Productos', 'Precios', 'Ofertas'];
 const settings = ['Mi perfil', 'Mis compras', 'Mis favoritos', 'Cerrar sesión'];
 
