@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { Navigate } from "react-router-dom";
 import { useState } from "react";
 import { useAuth } from "../../context/isAuthContext";
+import { Box, Button, TextField, Typography } from "@mui/material";
 
 const RegisterUser = () => {
     const [error, setError] = useState(null)
@@ -77,8 +78,8 @@ const RegisterUser = () => {
                     height: "20svh"
                 }}
             >
-                <Typography variant="h1" component="h3">
-                    Register
+                <Typography variant="h4" component="h3">
+                    REGISTRATE
                 </Typography>
             </Box>
 
