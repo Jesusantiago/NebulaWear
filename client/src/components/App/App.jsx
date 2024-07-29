@@ -13,7 +13,9 @@ function App() {
   return (
     <>
       <Navbar />
-      <main>
+
+      <main>        
+        <section className="main">
 
 
 
@@ -26,8 +28,13 @@ function App() {
             <Product />
           </div>
 
-          <button type='button' onClick={logoutComponent} > Cerrar sesion</button>
+        </section>
+
         
+        <button type='button' onClick={logoutComponent} > Cerrar sesion</button>
+
+      
+
       </main>
     </>
   )

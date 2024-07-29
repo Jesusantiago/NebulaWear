@@ -16,7 +16,11 @@ import { IconButton } from '@mui/material';
 
 
 const Search = () => {
+
+    // Estado que abre y cierra modal
     const [open, setOpen] = useState(false);
+
+    //Función que abre y cierra el modal
 
     const toggleDrawer = (newOpen) => () => {
         setOpen(newOpen);
@@ -25,16 +29,26 @@ const Search = () => {
     const DrawerList = (
         <Box sx={{ width: 1 }} role="presentation" class="search-view">
 
+            
             <Box sx={{ display: "flex", justifyContent: 'space-between', alignItems: 'center', p: 3 }}>
+
+                {/* Sección de busquedad */}
+
                 <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
                     <SearchIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
                     <TextField id="input-with-sx" label="Search" variant="standard" />
                 </Box>
 
+
+                {/* Icono para cerrar modal */}
+
                 <IconButton onClick={toggleDrawer(false)} sx={{ display: "flex" }}>
                     <CloseIcon fontSize='large' />
                 </IconButton>
             </Box>
+
+
+            {/* Titulos de relleno */}
 
             <List>
                 {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
@@ -68,9 +82,16 @@ const Search = () => {
 
     return (
         <div>
+
+
+            {/* Icono de Search */}
+
             <IconButton onClick={toggleDrawer(true)}>
                 <SearchIcon />
             </IconButton>
+
+
+            {/* Modal */}
 
             <Drawer open={open} onClose={toggleDrawer(false)}>
                 {DrawerList}
