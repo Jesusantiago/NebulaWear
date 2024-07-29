@@ -2,8 +2,6 @@ import Navbar from './Navbar';
 import Product  from "../Product/Product";
 import { useAuth } from "../../context/isAuthContext";
 
-
-
 function App() {
   const auth = useAuth()
 
@@ -15,8 +13,10 @@ function App() {
   return (
     <>
       <Navbar />
+
       <main>        
         <section className="main">
+
 
 
           <div className="productList">
@@ -27,10 +27,14 @@ function App() {
             <Product />
             <Product />
           </div>
+
         </section>
 
         
         <button type='button' onClick={logoutComponent} > Cerrar sesion</button>
+
+      
+
       </main>
     </>
   )
