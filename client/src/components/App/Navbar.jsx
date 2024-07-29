@@ -13,6 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import PersonIcon from '@mui/icons-material/Person2';
+import Search from './Search';
 
 const pages = ['Productos', 'Precios', 'Ofertas'];
 const settings = ['Mi perfil', 'Mis compras', 'Mis favoritos', 'Cerrar sesión'];
@@ -37,7 +38,7 @@ const Navbar = () => {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" color='transparent'>
 
       <Container maxWidth="xl">
 
@@ -121,6 +122,15 @@ const Navbar = () => {
           >
             NEBULA WEAR
           </Typography>
+
+          <Box>
+                        <Tooltip title="Search">
+                            <IconButton>
+                                <Search />
+                            </IconButton>
+                        </Tooltip>
+
+                    </Box>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
