@@ -1,4 +1,5 @@
 
+import { Box, Button, TextField, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 
 const RecoveryPasswordForm = () => {
@@ -67,7 +68,7 @@ const RecoveryPasswordForm = () => {
                         align="center"
                         fontWeight="700"
                     >
-                        Password recovery
+                        RECUPERAR CONTRASEÑA
                     </Typography>
 
                     <Typography
@@ -76,8 +77,9 @@ const RecoveryPasswordForm = () => {
                         align="center"
                         mb={2}
                         px={4}
+                        fontSize={16}
                     >
-                        Inform you email address used to create you account
+                        DANOS TU CORREO PARA RECIBIR EL LINK NECESARIO
                     </Typography>
 
                     <Box
