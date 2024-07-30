@@ -1,8 +1,7 @@
 import App from "../components/App/App.jsx";
 import ProductDetails  from "../components/Product/ProductDetails.jsx";
-import ChangeData from "../components/User/ChangeData.jsx";
+import EditData from "../components/User/EditData.jsx";
 import MyAccount from "../components/User/MyAccount.jsx";
-
 // @Array { RouterPublic } Array de objecto donde estaran todas las rutas publicas.
 
 let RouterPrivade = [
@@ -18,9 +17,9 @@ let RouterPrivade = [
         component: <MyAccount />,
         status: "Privade",
     },{
-        path: "/changeData",
-        name: "Cambiar datos",
-        component: <ChangeData />,
+        path: "/editData",
+        name: "Modificar datos",
+        component: <EditData />,
         status: "Privade",
     },
     {

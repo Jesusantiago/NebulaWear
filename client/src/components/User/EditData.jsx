@@ -1,22 +1,26 @@
+// src/components/User/ChangeData.jsx
 import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { Container, Box, Typography, TextField, Button, Alert, Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { changeUserData } from '../../components/Service/ServiceApi'; // Importa el servicio
 
-const ChangeData = () => {
+const EditData = () => {
   const [error, setError] = useState(null);
   const { handleSubmit, control, formState: { errors } } = useForm();
   const navigate = useNavigate(); // Inicializa useNavigate  
 
   // Función para manejar el envío del formulario
-  const onSubmit = async (data) => {
-    try {
-      console.log(data);
-      alert('Datos enviados correctamente');
-      navigate('/myAccount'); // Redirige al usuario a la ruta deseada
-    } catch (err) {
-      setError('Error al guardar los datos');
-    }
+  const onSubmit = (data) => {
+    // Llama a la función del servicio
+    changeUserData(data)
+      .then(() => {
+        alert('Datos enviados correctamente');
+        navigate('/myAccount'); // Redirige al usuario a la ruta deseada
+      })
+      .catch((err) => {
+        setError(err.message);
+      });
   };
 
   return (
@@ -228,4 +232,4 @@ const ChangeData = () => {
   );
 };
 
-export default ChangeData;
+export default EditData;

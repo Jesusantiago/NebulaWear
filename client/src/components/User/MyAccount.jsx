@@ -136,14 +136,14 @@ const MyAccount = () => {
         </Grid>
 
         {/* Botón para modificar datos, enlazado a la ruta /changeData */}
-        <Link to={'/changeData'}>
+        <Link to={'/editData'}>
           <Button
             fullWidth
             variant="contained"
             color="primary"
             sx={{ marginTop: '16px', marginBottom: '16px' }}
           >
-            Modificar datos
+            Editar datos
           </Button>
         </Link>
       </Box>
