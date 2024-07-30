@@ -42,7 +42,7 @@ const AppRouter = () => {
 
     return (
         <>
-            {userCurrent
+            {!userCurrent
                 ? <Routes>
                     {getRoutesPublic(RouterPublic)}
                     {console.log("hola")}

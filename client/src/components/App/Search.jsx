@@ -27,7 +27,7 @@ const Search = () => {
     };
 
     const DrawerList = (
-        <Box sx={{ width: 1 }} role="presentation" class="search-view">
+        <Box sx={{ width: 1 }} role="presentation" className="search-view">
 
             
             <Box sx={{ display: "flex", justifyContent: 'space-between', alignItems: 'center', p: 3 }}>

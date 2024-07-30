@@ -20,6 +20,7 @@ const Navbar = () => {
   //Estados para los modales
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
+  const [openSearch, setOpenSearch] = useState(false);
 
   //Funciones que ejecutan abrir o cerrar los modales.
 
@@ -131,11 +132,9 @@ const Navbar = () => {
 
             {/* Boton de Search */}
           <Box >
-            <Tooltip title="Search">
-                <IconButton>
-                    <Search />
-                </IconButton>
-            </Tooltip>
+                {/* <IconButton> */}
+                    <Search/>
+                {/* </IconButton> */}
           </Box>
 
             {/* Botones con cada titulo de pagina */}
@@ -185,6 +184,9 @@ const Navbar = () => {
         </Toolbar>
 
       </Container>
+
+ 
+      
     </AppBar>
   );
 }
