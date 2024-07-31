@@ -13,6 +13,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 import { IconButton } from '@mui/material';
+import Category from './Category';
 
 
 const Search = () => {
@@ -46,6 +47,8 @@ const Search = () => {
                     <CloseIcon fontSize='large' />
                 </IconButton>
             </Box>
+
+            <Category/>
 
 
             {/* Titulos de relleno */}
