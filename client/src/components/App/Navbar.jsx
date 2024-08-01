@@ -12,7 +12,8 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import PersonIcon from '@mui/icons-material/Person2';
-import Search from './Search';
+import Search from './Seach/Search.jsx';
+
 const pages = ['Productos', 'Precios', 'Ofertas'];
 const settings = ['Mi perfil', 'Mis compras', 'Mis favoritos', 'Cerrar sesión'];
 
@@ -20,6 +21,7 @@ const Navbar = () => {
   //Estados para los modales
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
+  const [openSearch, setOpenSearch] = useState(false);
 
   //Funciones que ejecutan abrir o cerrar los modales.
 
@@ -131,11 +133,9 @@ const Navbar = () => {
 
             {/* Boton de Search */}
           <Box >
-            <Tooltip title="Search">
-                <IconButton>
-                    <Search />
-                </IconButton>
-            </Tooltip>
+                {/* <IconButton> */}
+                    <Search/>
+                {/* </IconButton> */}
           </Box>
 
             {/* Botones con cada titulo de pagina */}
@@ -185,6 +185,9 @@ const Navbar = () => {
         </Toolbar>
 
       </Container>
+
+ 
+      
     </AppBar>
   );
 }
