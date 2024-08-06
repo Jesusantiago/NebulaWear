@@ -14,7 +14,7 @@ import "./styles/Css/style.css"
 let theme = createTheme({
   palette: {
     primary: {
-      main: "#FFF",
+      main: "#FFFFFF",
     },
     secondary: {
       main: "#C6CAD3",
