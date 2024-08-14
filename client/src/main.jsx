@@ -23,7 +23,10 @@ let theme = createTheme({
       main:"#8A4F7D",
     },
     black: {
-      main: "#0B0F0B"
+      main: "#0B0F0B50",
+    },
+    yellow:{
+      secondary: "#55433c"
     },
     error: {
       main: "#d50000",

@@ -1,7 +1,7 @@
 // @libreria { react-hook-form } encargada de manejar los datos del formulario.
 // @documentacion https://react-hook-form.com/get-started
 import { useForm } from "react-hook-form";
-import { Box, TextField, Button, Alert, InputAdornment } from "@mui/material";
+import { Box, TextField, Button, Alert, InputAdornment, Typography } from "@mui/material";
 import { useState } from "react";
 import { useAuth } from "../../context/isAuthContext";
 import GoogleIcon from '@mui/icons-material/Google';
@@ -71,7 +71,7 @@ const LoginForm = () => {
                 component="form"
                 display="flex"
                 flexDirection="column"
-                justifyContent="space-between"
+                justifyContent="space-around"
                 alignItems="center"
                 sx={{
                     width: 1,
@@ -81,6 +81,7 @@ const LoginForm = () => {
             >
                 <TextField
                     label="Email"
+                    type="email"
                     placeholder="youremail@example.com"
                     variant="outlined"
                     color='primary'
@@ -96,6 +97,11 @@ const LoginForm = () => {
                             </InputAdornment>
                         ),
                         style: {color: 'primary.main'}
+                    }}
+                    sx={{
+                        input: { 
+                            color: 'primary.main'
+                        }
                     }}
                     {...register('email', {
                         required: "Este campo es requerido",
@@ -142,10 +148,10 @@ const LoginForm = () => {
                     href="/forgotpassword"
                     variant="text"
                     color='primary'
-                    size="md"
-                    fullWidth
+                    size="md"   
                     sx={{
-                        textDecoration: 'underline'
+                        textDecoration: 'underline',
+                        mb:5
                     }}
                 >
                     Olvidaste la contraseña?
@@ -156,11 +162,12 @@ const LoginForm = () => {
                 <Button
                     variant="contained"
                     type="submit"
-                    color='black'
+                    // color='blackTransparent'
+                    color="black"
                     margin="dense"
                     size="large"
                     sx={{color: 'primary.main', width: 1/2}}
-
+                    
                 >
                     Login
                 </Button>
@@ -180,16 +187,20 @@ const LoginForm = () => {
                 Continue with Google
             </Button>
 
-            <Button
-                href='/register'
-                color='primary'
-                variant="text"
-                size="large"
-                fullWidth
-                mt={6}
-            >
-                Aun no tienes cuenta? Registrate
-            </Button>
+            <Typography color='primary'>
+                ¿Aún no tienes cuenta?
+                <Button
+                    href='/register'
+                    color='background'
+                    variant="text"
+                    size="large"
+                    mt={6}
+                    sx={{textDecoration:'underline'}}
+                >
+                    Registrate
+                </Button>
+            </Typography>
+
         </Box>
     );
 }

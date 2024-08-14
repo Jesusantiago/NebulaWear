@@ -2,7 +2,11 @@ import { useForm } from "react-hook-form";
 import { Navigate } from "react-router-dom";
 import { useState } from "react";
 import { useAuth } from "../../context/isAuthContext";
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Alert, Box, Button, InputAdornment, TextField, Typography } from "@mui/material";
+import EmailIcon from '@mui/icons-material/Email'
+import PasswordIcon from '@mui/icons-material/Password'
+import Visibility from '@mui/icons-material/Visibility'
+import VisibilityOff from '@mui/icons-material/VisibilityOff'
 
 const RegisterUser = () => {
     const [error, setError] = useState(null)
@@ -52,6 +56,7 @@ const RegisterUser = () => {
             return false
         }
     }
+
     return (
         <Box
             component="section"
@@ -63,10 +68,11 @@ const RegisterUser = () => {
                 minHeight: "100svh",
                 width: 1,
                 py: 6,
-                px: 4
+                px: 4,
+                background: 'linear-gradient(#74456A, #7C356D, #5D2952, #35102D, #050000)',
             }}
         >
-            {/* title */}
+            {/* img */}
             <Box
                 component="article"
                 display="flex"
@@ -78,9 +84,10 @@ const RegisterUser = () => {
                     height: "20svh"
                 }}
             >
-                <Typography variant="h4" component="h3">
-                    REGISTRATE
-                </Typography>
+               <img 
+                    src="src/assets/logos/nebula_logo.png"
+                    alt="Logo de Nebula Wear, tu lugar para puedes comprar ropa de lujo"
+                />
             </Box>
 
             {/* form */}
@@ -89,68 +96,125 @@ const RegisterUser = () => {
                 display="flex"
                 flexDirection="column"
                 justifyContent="space-between"
+                alignItems='center'
                 sx={{
                     width: 1,
-                    height: "35svh"
+                    height:'35svh',
+                    mb:25
                 }}
                 onSubmit={handleSubmit(onSubmit)}
             >
                 <TextField
-                    label="name"
-                    placeholder="your name"
-                    value="jesus"
-                    variant="filled"
-                    color="success"
-                    margin="dense"
-                    fullWidth
-                    autoFocus
-                    autoComplete="name"
-                    {...register('name', {
-                        required: "Este campo es requerido",
-                        pattern: {
-                            value: /^[a-z ,.'-]+$/i,
-                            message: "Ingrese un nombre valido"
-                        },
-
-                    })}
-                />
-                {(errors.name && <Alert severity="error"> {errors.email.message} </Alert>)}
-                <TextField
                     label="Email"
                     placeholder="youremail@example.com"
-                    variant="filled"
-                    color="success"
+                    variant="outlined"
+                    color="primary"
                     margin="dense"
                     fullWidth
                     autoFocus
-                    autoComplete="email"
+                    focused
+                    autoComplete="Email"
+                    InputProps={{
+                        startAdornment : (
+                            <InputAdornment position="start">
+                                <EmailIcon color="primary"/>
+                            </InputAdornment>
+                        ),
+                        style: {color: 'primary.main'}
+                    }}
+                    sx={{
+                        input: { 
+                            color: 'primary.main'
+                        }
+                    }}
                     {...register('email', {
                         required: "Este campo es requerido",
                         pattern: {
                             value: /[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,5}/,
-                            message: "Intenta introduciendo un correo electronico"
+                            message: "Intenta introducir un correo electronico"
                         },
 
                     })}
                 />
-                {(errors.email && <Alert severity="value"> {errors.email.message} </Alert>)}
+                {(errors.email && <Alert severity="error"> {errors.email.message} </Alert>)}
 
                 <TextField
-                    label="Password"
+                    label="Contraseña"
                     type="password"
                     placeholder="........."
-                    variant="filled"
-                    color="success"
+                    variant="outlined"
+                    color="primary"
+                    margin="dense"
+                    fullWidth
+                    autoComplete="password"
+                    focused
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <PasswordIcon color='primary' />
+                            </InputAdornment>
+                        ),
+                        endAdornment:(
+                            <InputAdornment position="end">
+                                <VisibilityOff color="primary" />
+                            </InputAdornment>
+                        ),
+                        style: {color: 'primary.main'}
+                    }}
+                    sx={{
+                        input: { 
+                            color: 'primary.main'
+                        }
+                    }}
+                    {...register('password', {
+                        required: "Este campo es requerido",
+                        pattern: {
+                            value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d$@$!%*?&]{8,15}/,
+                            message: "Intenta introduciendo un correo electronico"
+                        },
+                    })}
+                />
+                {(errors.password && <Alert severity="error"> {errors.password.message} </Alert>)}
+
+                <TextField
+                    label="Repite tu contraseña"
+                    type="password"
+                    placeholder="........."
+                    variant="outlined"
+                    color="primary"
                     margin="dense"
                     fullWidth
                     autoComplete="current-password"
+                    focused
+                    InputProps={{
+                        startAdornment : (
+                            <InputAdornment position="start">
+                                <PasswordIcon color="primary" />
+                            </InputAdornment>
+                        ),
+                        endAdornment:(
+                            <InputAdornment position="end">
+                                <VisibilityOff color="primary" />
+                            </InputAdornment>
+                        ),
+                        style: {color: 'primary.main'}
+                    }}
+                    sx={{
+                        input: { 
+                            color: 'primary.main'
+                        }
+                    }}
                     {...register('password', {
                         required: "Este campo es requerido",
-                        // pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d$@$!%*?&]{8,15}/,
+                        pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d$@$!%*?&]{8,15}/,
                     })}
                 />
-
                 {(errors.password && <Alert severity="error"> {errors.password.message} </Alert>)}
+
+                <Typography color='primary' textAlign='center' sx={{my:3}}>
+                    "Por que cada outfit cuenta una historia. <br/> ¡Escribe la tuya con nosotros!"
+                </Typography>
+
 
                 <Button
                     variant="contained"
@@ -159,26 +223,13 @@ const RegisterUser = () => {
                     margin="dense"
                     size="large"
                 >
-                    Boton de registrar
+                    Registrarse
                 </Button>
                 {
                     error && <Alert severity={error.severity}> {error.message}</Alert>
                 }
             </Box>
 
-
-            <Button
-                href='/login'
-                type="submit"
-                color='success'
-                underline="none"
-                variant="outlined"
-                size="large"
-                fullWidth
-                mt={6}
-            >
-                Register
-            </Button>
         </Box>
     )
 }
