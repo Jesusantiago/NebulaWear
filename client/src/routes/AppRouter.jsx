@@ -42,7 +42,7 @@ const AppRouter = () => {
 
     return (
         <>
-            {userCurrent
+            {!userCurrent
                 ? <Routes>
                     {getRoutesPublic(RouterPublic)}
                     <Route path="*" element={<Navigate to="/login" replace />} />
