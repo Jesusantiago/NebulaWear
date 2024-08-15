@@ -1,6 +1,7 @@
 
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Box, Button, InputAdornment, TextField, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
+import PersonIcon from '@mui/icons-material/Person';
 
 const RecoveryPasswordForm = () => {
 
@@ -21,133 +22,127 @@ const RecoveryPasswordForm = () => {
             display="flex"
             flexDirection="column"
             alignItems="center"
-            justifyContent="start"
+            justifyContent="space-between"
             sx={{
+                minHeight: "100svh",
                 width: 1,
-                height: "100svh",
-                py: 12,
-                px: 4
+                py: 6,
+                px: 4,
+                background: 'linear-gradient(#74456A, #7C356D, #5D2952, #35102D, #050000)',
             }}
         >
+            {/* img */}
             <Box
-                component="section"
+                component="article"
                 display="flex"
-                flexDirection="column"
-                justifyContent="space-between"
-                alignItems="center"
+                alignItems="end"
+                justifyContent="center"
                 sx={{
-                    width: 1,
-                    height: "60%",
+                    minWidth: 1,
+                    height: "20svh",
                 }}
             >
-
-
-                <Box
-                    component="article"
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="center"
-                    sx={{
-                        width: 1,
-                        height: "30%",
-
-                    }}
-                >
-                    <img src="src/assets/logos/logo_yard_sale.svg" alt="Logo Yard Sale" />
-                </Box>
-
-                <Box
-                    component="article"
-                    sx={{
-                        width: 1,
-                    }}
-                >
-                    <Typography
-                        variant="h5"
-                        component="h1"
-                        align="center"
-                        fontWeight="700"
-                    >
-                        RECUPERAR CONTRASEÑA
-                    </Typography>
-
-                    <Typography
-                        variant="h5"
-                        component="p"
-                        align="center"
-                        mb={2}
-                        px={4}
-                        fontSize={16}
-                    >
-                        DANOS TU CORREO PARA RECIBIR EL LINK NECESARIO
-                    </Typography>
-
-                    <Box
-                        component="form"
-                        display="flex"
-                        flexDirection="column"
-                        alignItems="center"
-                        justifyContent="space-between"
-                        sx={{
-                            width:1,
-                        }}
-                        onSubmit={handleSubmit(onSubmit)}
-                    >
-                        <TextField
-                            label="Email address"
-                            placeholder="youremail@example.com"
-                            variant="filled"
-                            margin="normal"
-                            fullWidth
-                            autoFocus
-                            type="email"
-                            autoComplete="email"
-                            {...register('email' ,{
-                                required : "Este campo es requerido",
-                                pattern : {
-                                    value: /[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,5}/,
-                                    message: "Intenta introduciendo un correo electronico"    
-                                },
-                                
-                            })}
-                        />
-
-                            { ( errors.email && <Alert severity="error" fullWidth> {errors.email.message} </Alert> ) }
-
-                        <Button
-                            href=""
-                            type="submit"
-                            color="success"
-                            variant="contained"
-                            fullWidth
-                            size="large"
-                        >
-                            Submit
-                        </Button>
-                    </Box>
-                </Box>
-
-                <Box
-                    component="article"
-                    display="block"
-                    width="100%"
-                >
-                    <Button
-                        href="/login"
-                        type="button"
-                        color="success"
-                        variant="text"
-                        fullWidth
-                    >
-                        Back to login
-                    </Button>
-
-
-                </Box>
-
-               
+                <img 
+                    src="src/assets/logos/nebula_logo.png"
+                    alt="Logo de Nebula Wear, tu lugar para puedes comprar ropa de lujo"
+                />
             </Box>
 
+            {/* form */}
+            <Box
+                component="article"
+                sx={{
+                    width: 1,
+                    height: '35svh'
+                }}
+            >
+                <Box
+                    component="form"
+                    display="flex"
+                    flexDirection="column"
+                    alignItems="center"
+                    justifyContent="space-between"
+                    sx={{
+                        width:1,
+                    }}
+                    onSubmit={handleSubmit(onSubmit)}
+                >
+                    <TextField
+                        label="Email"
+                        type="email"
+                        placeholder="youremail@example.com"
+                        variant="outlined"
+                        color="primary"
+                        margin="normal"
+                        fullWidth
+                        autoFocus
+                        focused
+                        autoComplete="email"
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <PersonIcon color='primary'/>
+                                </InputAdornment>
+                            ),
+                            style: {color: 'primary.main'}
+                        }}
+                        sx={{
+                            mb:7,
+                            input: { 
+                                color: 'primary.main'
+                            }
+                        }}
+                        {...register('email' ,{
+                            required : "Este campo es requerido",
+                            pattern : {
+                                value: /[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,5}/,
+                                message: "Intenta introduciendo un correo electronico"    
+                            },
+                            
+                        })}
+                    />
+
+                        { ( errors.email && <Alert severity="error" fullWidth> {errors.email.message} </Alert> ) }
+
+                    <Button
+                        href=""
+                        type="submit"
+                        color="success"
+                        variant="contained"
+                        size="large"
+                        sx={{
+                            width:1/2
+                        }}
+                    >
+                        Submit
+                    </Button>
+                </Box>
+            </Box>
+
+            <Box
+                component="article"
+                display="block"
+                width="100%"
+                size='large'
+                sx={{
+                    mb:7
+                }}
+            >
+                <Button
+                    href="/login"
+                    type="button"
+                    color="primary"
+                    variant="text"
+                    fullWidth
+                    sx={{
+                        textDecoration: 'underline'
+                    }}
+                >
+                    Back to login
+                </Button>
+
+
+            </Box>
         </Box>
     );
 }
