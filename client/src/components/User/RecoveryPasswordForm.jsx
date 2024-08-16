@@ -48,84 +48,95 @@ const RecoveryPasswordForm = () => {
                 />
             </Box>
 
-            {/* form */}
+            {/* title */}
+
             <Box
-                component="article"
-                sx={{
-                    width: 1,
-                    height: '35svh'
-                }}
+                component='section'
             >
-                <Box
-                    component="form"
-                    display="flex"
-                    flexDirection="column"
-                    alignItems="center"
-                    justifyContent="space-between"
-                    sx={{
-                        width:1,
-                    }}
-                    onSubmit={handleSubmit(onSubmit)}
+                <Typography
+                    color='primary'
+                    component='h1'
+                    variant="h4"
+                    textAlign='center'
+                    
                 >
-                    <TextField
-                        label="Email"
-                        type="email"
-                        placeholder="youremail@example.com"
-                        variant="outlined"
-                        color="primary"
-                        margin="normal"
-                        fullWidth
-                        autoFocus
-                        focused
-                        autoComplete="email"
-                        InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                    <PersonIcon color='primary'/>
-                                </InputAdornment>
-                            ),
-                            style: {color: 'primary.main'}
-                        }}
-                        sx={{
-                            mb:7,
-                            input: { 
-                                color: 'primary.main'
-                            }
-                        }}
-                        {...register('email' ,{
-                            required : "Este campo es requerido",
-                            pattern : {
-                                value: /[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,5}/,
-                                message: "Intenta introduciendo un correo electronico"    
-                            },
-                            
-                        })}
-                    />
-
-                        { ( errors.email && <Alert severity="error" fullWidth> {errors.email.message} </Alert> ) }
-
-                    <Button
-                        href=""
-                        type="submit"
-                        color="success"
-                        variant="contained"
-                        size="large"
-                        sx={{
-                            width:1/2
-                        }}
-                    >
-                        Submit
-                    </Button>
-                </Box>
+                    Recupera tu contraseña
+                </Typography>
             </Box>
 
+            {/* form */}
+            <Box
+                component="form"
+                display="flex"
+                flexDirection="column"
+                alignItems="center"
+                justifyContent="space-between"
+                sx={{
+                    width:1,
+                    height:'35svh'
+                }}
+                onSubmit={handleSubmit(onSubmit)}
+            >
+                <TextField
+                    label="Email"
+                    type="email"
+                    placeholder="youremail@example.com"
+                    variant="outlined"
+                    color="primary"
+                    margin="normal"
+                    fullWidth
+                    autoFocus
+                    focused
+                    autoComplete="email"
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <PersonIcon color='primary'/>
+                            </InputAdornment>
+                        ),
+                        style: {color: 'primary.main'}
+                    }}
+                    sx={{
+                        mb:7,
+                        input: { 
+                            color: 'primary.main'
+                        }
+                    }}
+                    {...register('email' ,{
+                        required : "Este campo es requerido",
+                        pattern : {
+                            value: /[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,5}/,
+                            message: "Intenta introduciendo un correo electronico"    
+                        },
+                        
+                    })}
+                />
+
+                    { ( errors.email && <Alert severity="error" fullWidth> {errors.email.message} </Alert> ) }
+
+                <Button
+                    href=""
+                    type="submit"
+                    color="success"
+                    variant="contained"
+                    size="large"
+                    sx={{
+                        width:1/2
+                    }}
+                >
+                    Submit
+                </Button>
+            </Box>
+            
+            {/* go back */}
             <Box
                 component="article"
-                display="block"
+                display="flex"
+                justifyContent='center'
                 width="100%"
                 size='large'
                 sx={{
-                    mb:7
+                    pb:5
                 }}
             >
                 <Button
@@ -133,7 +144,6 @@ const RecoveryPasswordForm = () => {
                     type="button"
                     color="primary"
                     variant="text"
-                    fullWidth
                     sx={{
                         textDecoration: 'underline'
                     }}
