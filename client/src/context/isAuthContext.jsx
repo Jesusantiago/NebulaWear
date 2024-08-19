@@ -5,12 +5,14 @@ import {
   signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
+  sendPasswordResetEmail,
   signOut,
   updateProfile
 } from "firebase/auth";
 import { apiRegister } from "../components/Service/ServiceApi";
 
 export const AuthContext = createContext()
+
 export const useAuth = () => {
   const context = useContext(AuthContext)
   
@@ -22,14 +24,21 @@ export const AuthProvider = ({ children }) => {
   const [userCurrent, setUserCurrent] = useState(null)
   // @const estado si hay o no un usuario logeado
 
-  // useEffect(() => {
-  //   const storedUser = localStorage.getItem("user")
-  //   if(storedUser){
-  //     setUserCurrent(storedUser)
-  //   }
-  // }, [])
+  useEffect(() => {
+      const storedUser = localStorage.getItem("user")
+      if(storedUser){
+        setUserCurrent(storedUser)
+        console.log(userCurrent)
+      }else{
+        console.log("esto no esta bien")
+      }
+    }, [userCurrent])
   
+
+
   /*
+
+
     @funtion { register } registra al usuario en Firebase y en nuestra base de datos
     @funtion createUserWithEmailAndPassword Google
     @funtion apiRegister registrar el usuario en nuestra base de datos
@@ -105,12 +114,20 @@ export const AuthProvider = ({ children }) => {
     const responseOut = await signOut(auth)
   }
 
+  const resetPassword = async (email) => {
+    sendPasswordResetEmail(auth, email)
+    .then(()=> {
+      console.log()
+    })
+  }
+
   return <AuthContext.Provider
     value={{
       register,
       login,
       loginWithGoogle,
       logout,
+      resetPassword,
       userCurrent
     }}
   >
