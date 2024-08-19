@@ -2,8 +2,12 @@
 import { Box, Button, InputAdornment, TextField, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 import PersonIcon from '@mui/icons-material/Person';
+import { useAuth } from '../../context/isAuthContext'
+
 
 const RecoveryPasswordForm = () => {
+    const auth = useAuth()
+
 
     const {
         register,
@@ -13,6 +17,7 @@ const RecoveryPasswordForm = () => {
 
     const onSubmit = (data) => {
         const { email } = data
+        auth.resetPassword(email)
         console.log("Correo de Recovery Password: " + email)
     }
 
