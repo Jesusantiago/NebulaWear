@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import { Box, TextField, Button, Alert, InputAdornment, Typography } from "@mui/material";
 import { useState } from "react";
 import { useAuth } from "../../context/isAuthContext";
-import GoogleIcon from '@mui/icons-material/Google';
 import PersonIcon from '@mui/icons-material/Person';
 import PasswordIcon from '@mui/icons-material/Password';
 
