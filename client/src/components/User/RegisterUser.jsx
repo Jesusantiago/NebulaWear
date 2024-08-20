@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { Navigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../../context/isAuthContext";
 import { Alert, Box, Button, InputAdornment, TextField, Typography } from "@mui/material";
 import EmailIcon from '@mui/icons-material/Email'
@@ -23,6 +23,10 @@ const RegisterUser = () => {
             value : 201,
             severity : "success",
             message : "Ahora eres usuario."
+        },{
+            value: 401,
+            severity : "error",
+            message : "Las contraseñas no coinciden"
         },
         {
             value : 409,
@@ -36,24 +40,33 @@ const RegisterUser = () => {
         }
     ]
 
+    useEffect( ()=> console.log("Este es el effect del error: " + error) ,[error])
+
     // *@funcion { OnSubmit } Recibe los datos enviados desde el formulario.
     // *@parametro { data } la data que recibe desde el formulario
     // *@funcion { auth.register } Función que ejecuta el registro en Firebase y server/api
 
     const onSubmit = async (data) => {
-        const { email, password, name } = data;
-        try {
-            const user = await auth.register(email, password, name);
-            console.log(user)
-            const { value } = await user;
-            console.log(user)
-            valueObj.find(err => {
-                if(err.value == value){
+        const { email, password, repitPassword } = data;
+        
+        if(repitPassword !== password){
+            valueObj.find(err=>{
+                if(err.value == 401){
                     return setError(err)
                 }
             })
-        } catch (err) {
-            return false
+        } else {
+            try {
+                const user = await auth.register(email, password, name);
+                const { value } = await user;
+                valueObj.find(err => {
+                    if(err.value == value){
+                        return setError(err)
+                    }
+                })
+            } catch (err) {
+                return false
+            }
         }
     }
 
@@ -170,11 +183,11 @@ const RegisterUser = () => {
                         required: "Este campo es requerido",
                         pattern: {
                             value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d$@$!%*?&]{8,15}/,
-                            message: "Intenta introduciendo un correo electronico"
+                            message: "La contraseña debe de tener un caracter en Mayuscula, uno en miniculas, un numero y al menos un caracter especial"
                         },
                     })}
                 />
-                {(errors.password && <Alert severity="error"> {errors.password.message} </Alert>)}
+                {(errors.password && <Alert severity="error"> {errors.password.message } </Alert>)}
 
                 <TextField
                     label="Repite tu contraseña"
@@ -204,12 +217,15 @@ const RegisterUser = () => {
                             color: 'primary.main'
                         }
                     }}
-                    {...register('password', {
+                    {...register('repitPassword', {
                         required: "Este campo es requerido",
-                        pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d$@$!%*?&]{8,15}/,
+                        pattern: {
+                            value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d$@$!%*?&]{8,15}/,
+                            message: "La contraseña debe de tener un caracter en Mayuscula, uno en miniculas, un numero y al menos un caracter especial"
+                        },
                     })}
                 />
-                {(errors.password && <Alert severity="error"> {errors.password.message} </Alert>)}
+                {(errors.password && <Alert severity="error"> {errors.repitPassword.message } </Alert>)}
 
                 <Typography color='primary' textAlign='center' sx={{my:3}}>
                     "Por que cada outfit cuenta una historia. <br/> ¡Escribe la tuya con nosotros!"
@@ -225,8 +241,15 @@ const RegisterUser = () => {
                 >
                     Registrarse
                 </Button>
-                {
-                    error && <Alert severity={error.severity}> {error.message}</Alert>
+                { 
+                // error && valueObj.map((code) => {
+                //         if(error == code.value){
+                //             <Alert severity={error.severity}> {error.message}</Alert>
+                //         }
+                //     })
+
+                error && <Alert severity={error.severity}> {error.message} </Alert>
+                
                 }
             </Box>
 

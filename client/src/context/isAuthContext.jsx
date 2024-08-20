@@ -10,6 +10,8 @@ import {
   updateProfile
 } from "firebase/auth";
 import { apiRegister } from "../components/Service/ServiceApi";
+import { Alert } from "@mui/material";
+
 
 export const AuthContext = createContext()
 
@@ -34,35 +36,30 @@ export const AuthProvider = ({ children }) => {
       }
     }, [userCurrent])
   
-
-
   /*
-
-
     @funtion { register } registra al usuario en Firebase y en nuestra base de datos
     @funtion createUserWithEmailAndPassword Google
     @funtion apiRegister registrar el usuario en nuestra base de datos
 
   */
-  const register = async (email, password, name) => {
+
+  const register = async (email, password) => {
     try {
       const { user } = await createUserWithEmailAndPassword(auth, email, password)
-      await updateProfile(user, { displayName: name })
       console.log(user)
       let valueApi;
       if (Object.keys(user).length !== 0) {
         const dataApi = await apiRegister(user)
-        valueApi = dataApi
-        localStorage.setItem("user", user.uid)
+        // valueApi = dataApi
+        // localStorage.setItem("user", user.uid)
       }
-      setUserCurrent({
-        value: valueApi,
-        uid: user.uid,
-        name: user.displayName,
-        email: user.email,
-      })
+      // setUserCurrent({
+      //   value: valueApi,
+      //   uid: user.uid,
+      //   email: user.email,
+      // })
 
-      return userCurrent
+      return {value : 201}
     }
     catch (err) {
       return {value : 409}
@@ -117,8 +114,9 @@ export const AuthProvider = ({ children }) => {
   const resetPassword = async (email) => {
     sendPasswordResetEmail(auth, email)
     .then(()=> {
-      console.log()
+      <Alert severity="success"> El correo se ha enviado</Alert>
     })
+    .catch((err) => console.log(err))
   }
 
   return <AuthContext.Provider
