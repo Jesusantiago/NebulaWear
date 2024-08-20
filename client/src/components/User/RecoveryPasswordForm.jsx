@@ -15,9 +15,9 @@ const RecoveryPasswordForm = () => {
         formState: { errors }
     } = useForm()
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         const { email } = data
-        auth.resetPassword(email)
+        await auth.resetPassword(email)
         console.log("Correo de Recovery Password: " + email)
     }
 
