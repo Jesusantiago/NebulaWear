@@ -7,6 +7,7 @@ import EmailIcon from '@mui/icons-material/Email'
 import PasswordIcon from '@mui/icons-material/Password'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
+import { handlerErrors } from "../Service/handlerErrors";
 
 const RegisterUser = () => {
     const [error, setError] = useState(null)
@@ -17,30 +18,19 @@ const RegisterUser = () => {
         formState: { errors },
     } = useForm()
 
-    // *@Objecto { valueObj } - Valores que deben ser presentado en el formulario por cualquier respuesta positiva o negativa. 
-    const valueObj = [
-        {
-            value : 201,
-            severity : "success",
-            message : "Ahora eres usuario."
-        },{
-            value: 401,
-            severity : "error",
-            message : "Las contraseñas no coinciden"
-        },
-        {
-            value : 409,
-            severity : "error",
-            message : "Ya existe una cuentra con este correo."
-        },
-        {
-            value: 500,
-            severity : "error",
-            message : "Perdón, hemos tenido un problema en nuestro servidor. Por favor intentalo de nuevo"
-        }
-    ]
+    //*@funtion { comparePassword } Función que compara ambas contraseñas para ver si son iguales
+    //*@params { p, rp } p = password, rp = repitPassword
+    //*Array { handlerErrors} Array de objecto con los distintos tipos de errores que pueden existen en la app
 
-    useEffect( ()=> console.log("Este es el effect del error: " + error) ,[error])
+    const comparePassword = (p, rp) => {
+        if(p !== rp){
+            handlerErrors.find(val=>{
+                if(val.value == 401){
+                    return setError(val)
+                }
+            })
+        }
+    }
 
     // *@funcion { OnSubmit } Recibe los datos enviados desde el formulario.
     // *@parametro { data } la data que recibe desde el formulario
@@ -49,17 +39,15 @@ const RegisterUser = () => {
     const onSubmit = async (data) => {
         const { email, password, repitPassword } = data;
         
-        if(repitPassword !== password){
-            valueObj.find(err=>{
-                if(err.value == 401){
-                    return setError(err)
-                }
-            })
-        } else {
+        if(!comparePassword(password, repitPassword)){
+            return
+        }
+         else{
+
             try {
-                const user = await auth.register(email, password, name);
+                const user = await auth.register(email, password);
                 const { value } = await user;
-                valueObj.find(err => {
+                handlerErrors.find(err => {
                     if(err.value == value){
                         return setError(err)
                     }
@@ -69,6 +57,7 @@ const RegisterUser = () => {
             }
         }
     }
+
 
     return (
         <Box
@@ -85,6 +74,10 @@ const RegisterUser = () => {
                 background: 'linear-gradient(#74456A, #7C356D, #5D2952, #35102D, #050000)',
             }}
         >
+            { 
+                error && <Alert severity={error.severity}> {error.message} </Alert>          
+            }
+            
             {/* img */}
             <Box
                 component="article"
@@ -241,18 +234,7 @@ const RegisterUser = () => {
                 >
                     Registrarse
                 </Button>
-                { 
-                // error && valueObj.map((code) => {
-                //         if(error == code.value){
-                //             <Alert severity={error.severity}> {error.message}</Alert>
-                //         }
-                //     })
-
-                error && <Alert severity={error.severity}> {error.message} </Alert>
-                
-                }
             </Box>
-
         </Box>
     )
 }
