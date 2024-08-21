@@ -59,21 +59,15 @@ export const AuthProvider = ({ children }) => {
     try {
       const { user } = await createUserWithEmailAndPassword(auth, email, password)
       sendEmailVerification(auth.currentUser)
-      console.log(auth.currentUser)
-      let valueApi;
       if (Object.keys(user).length !== 0) {
-        const dataApi = await apiRegister(user)
-        console.log(dataApi)
+        await apiRegister(user)
       }
-      return {value : 201}
+      return {value : 3}
     }
     catch (err) {
       const errorMessage = errorRegister[err.code] || err.message || "El registro ha fallado, por favor intentelo de nuevo"
-
       return {
-        value : 401,
-        message: errorMessage,
-        error: err
+        value : errorMessage,
       }
     }
   }

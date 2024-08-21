@@ -25,11 +25,13 @@ const RegisterUser = () => {
     const comparePassword = (p, rp) => {
         if(p !== rp){
             handlerErrors.find(val=>{
-                if(val.value == 401){
-                    return setError(val)
+                if(val.value === 401){
+                  setError(val)
                 }
             })
+            return true
         }
+        return false
     }
 
     // *@funcion { OnSubmit } Recibe los datos enviados desde el formulario.
@@ -38,23 +40,21 @@ const RegisterUser = () => {
 
     const onSubmit = async (data) => {
         const { email, password, repitPassword } = data;
-        
-        if(!comparePassword(password, repitPassword)){
+
+        if(comparePassword(password, repitPassword)){
             return
         }
-         else{
 
-            try {
-                const user = await auth.register(email, password);
-                const { value } = await user;
-                handlerErrors.find(err => {
-                    if(err.value == value){
-                        return setError(err)
-                    }
-                })
-            } catch (err) {
-                return false
-            }
+        try {
+            const user = await auth.register(email, password);
+            const { value } = await user;
+            handlerErrors.find(err => {
+                if(err.value == value){
+                    return setError(err)
+                }
+            })
+        } catch (err) {
+            return console.log(err)
         }
     }
 
@@ -75,7 +75,7 @@ const RegisterUser = () => {
             }}
         >
             { 
-                error && <Alert severity={error.severity}> {error.message} </Alert>          
+                error  && <Alert severity={error.severity}> {error.message} </Alert>        
             }
             
             {/* img */}
@@ -146,7 +146,7 @@ const RegisterUser = () => {
 
                 <TextField
                     label="Contraseña"
-                    type="password"
+                    type="text"
                     placeholder="........."
                     variant="outlined"
                     color="primary"
@@ -184,7 +184,7 @@ const RegisterUser = () => {
 
                 <TextField
                     label="Repite tu contraseña"
-                    type="password"
+                    type="text"
                     placeholder="........."
                     variant="outlined"
                     color="primary"
@@ -218,7 +218,7 @@ const RegisterUser = () => {
                         },
                     })}
                 />
-                {(errors.password && <Alert severity="error"> {errors.repitPassword.message } </Alert>)}
+                {(errors.repitPassword && <Alert severity="error"> {errors.repitPassword.message } </Alert>)}
 
                 <Typography color='primary' textAlign='center' sx={{my:3}}>
                     "Por que cada outfit cuenta una historia. <br/> ¡Escribe la tuya con nosotros!"
