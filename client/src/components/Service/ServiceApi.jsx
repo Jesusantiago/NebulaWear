@@ -7,7 +7,6 @@ export const apiRegister = async (user) => {
         },
         body: JSON.stringify({
             id: user.uid,
-            name: user.displayName,
             email: user.email
         })
     })

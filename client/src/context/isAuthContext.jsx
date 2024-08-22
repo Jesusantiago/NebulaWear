@@ -5,12 +5,20 @@ import {
   signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
+  sendPasswordResetEmail,
   signOut,
-  updateProfile
+  updateProfile,
+  sendEmailVerification
 } from "firebase/auth";
 import { apiRegister } from "../components/Service/ServiceApi";
+import { Alert } from "@mui/material";
+import { errorRegister } from "../components/Service/handlerErrors";
+
+// https://es.stackoverflow.com/questions/549655/c%C3%B3mo-verificar-que-el-correo-electr%C3%B3nico-sea-aut%C3%A9ntico-en-firebase
+// Documentación para ver tema de verificar correo
 
 export const AuthContext = createContext()
+
 export const useAuth = () => {
   const context = useContext(AuthContext)
   
@@ -22,12 +30,23 @@ export const AuthProvider = ({ children }) => {
   const [userCurrent, setUserCurrent] = useState(null)
   // @const estado si hay o no un usuario logeado
 
-  // useEffect(() => {
-  //   const storedUser = localStorage.getItem("user")
-  //   if(storedUser){
-  //     setUserCurrent(storedUser)
-  //   }
-  // }, [])
+  useEffect(() => {
+    // if(auth.currentUser.emailVerified === true){
+    //   localStorage.setItem("user", auth.currentUser.uid)
+    //   const storedUser = localStorage.getItem("user")
+    //   if(storedUser){
+    //     setUserCurrent(storedUser)
+    //   }
+    // }
+
+    console.log(auth.currentUser)
+      // if(storedUser){
+      //   setUserCurrent(storedUser)
+      //   console.log(userCurrent)
+      // }else{
+      //   console.log("esto no esta bien")
+      // }
+    }, [userCurrent])
   
   /*
     @funtion { register } registra al usuario en Firebase y en nuestra base de datos
@@ -35,28 +54,21 @@ export const AuthProvider = ({ children }) => {
     @funtion apiRegister registrar el usuario en nuestra base de datos
 
   */
-  const register = async (email, password, name) => {
+
+  const register = async (email, password) => {
     try {
       const { user } = await createUserWithEmailAndPassword(auth, email, password)
-      await updateProfile(user, { displayName: name })
-      console.log(user)
-      let valueApi;
+      sendEmailVerification(auth.currentUser)
       if (Object.keys(user).length !== 0) {
-        const dataApi = await apiRegister(user)
-        valueApi = dataApi
-        localStorage.setItem("user", user.uid)
+        await apiRegister(user)
       }
-      setUserCurrent({
-        value: valueApi,
-        uid: user.uid,
-        name: user.displayName,
-        email: user.email,
-      })
-
-      return userCurrent
+      return {value : 3}
     }
     catch (err) {
-      return {value : 409}
+      const errorMessage = errorRegister[err.code] || err.message || "El registro ha fallado, por favor intentelo de nuevo"
+      return {
+        value : errorMessage,
+      }
     }
   }
 
@@ -105,12 +117,21 @@ export const AuthProvider = ({ children }) => {
     const responseOut = await signOut(auth)
   }
 
+  const resetPassword = async (email) => {
+    sendPasswordResetEmail(auth, email)
+    .then(()=> {
+      <Alert severity="success"> El correo se ha enviado</Alert>
+    })
+    .catch((err) => console.log(err))
+  }
+
   return <AuthContext.Provider
     value={{
       register,
       login,
       loginWithGoogle,
       logout,
+      resetPassword,
       userCurrent
     }}
   >

@@ -1,12 +1,13 @@
 import { useForm } from "react-hook-form";
 import { Navigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../../context/isAuthContext";
 import { Alert, Box, Button, InputAdornment, TextField, Typography } from "@mui/material";
 import EmailIcon from '@mui/icons-material/Email'
 import PasswordIcon from '@mui/icons-material/Password'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
+import { handlerErrors } from "../Service/handlerErrors";
 
 const RegisterUser = () => {
     const [error, setError] = useState(null)
@@ -17,45 +18,46 @@ const RegisterUser = () => {
         formState: { errors },
     } = useForm()
 
-    // *@Objecto { valueObj } - Valores que deben ser presentado en el formulario por cualquier respuesta positiva o negativa. 
-    const valueObj = [
-        {
-            value : 201,
-            severity : "success",
-            message : "Ahora eres usuario."
-        },
-        {
-            value : 409,
-            severity : "error",
-            message : "Ya existe una cuentra con este correo."
-        },
-        {
-            value: 500,
-            severity : "error",
-            message : "Perdón, hemos tenido un problema en nuestro servidor. Por favor intentalo de nuevo"
+    //*@funtion { comparePassword } Función que compara ambas contraseñas para ver si son iguales
+    //*@params { p, rp } p = password, rp = repitPassword
+    //*Array { handlerErrors} Array de objecto con los distintos tipos de errores que pueden existen en la app
+
+    const comparePassword = (p, rp) => {
+        if(p !== rp){
+            handlerErrors.find(val=>{
+                if(val.value === 401){
+                  setError(val)
+                }
+            })
+            return true
         }
-    ]
+        return false
+    }
 
     // *@funcion { OnSubmit } Recibe los datos enviados desde el formulario.
     // *@parametro { data } la data que recibe desde el formulario
     // *@funcion { auth.register } Función que ejecuta el registro en Firebase y server/api
 
     const onSubmit = async (data) => {
-        const { email, password, name } = data;
+        const { email, password, repitPassword } = data;
+
+        if(comparePassword(password, repitPassword)){
+            return
+        }
+
         try {
-            const user = await auth.register(email, password, name);
-            console.log(user)
+            const user = await auth.register(email, password);
             const { value } = await user;
-            console.log(user)
-            valueObj.find(err => {
+            handlerErrors.find(err => {
                 if(err.value == value){
                     return setError(err)
                 }
             })
         } catch (err) {
-            return false
+            return console.log(err)
         }
     }
+
 
     return (
         <Box
@@ -72,6 +74,10 @@ const RegisterUser = () => {
                 background: 'linear-gradient(#74456A, #7C356D, #5D2952, #35102D, #050000)',
             }}
         >
+            { 
+                error  && <Alert severity={error.severity}> {error.message} </Alert>        
+            }
+            
             {/* img */}
             <Box
                 component="article"
@@ -140,7 +146,7 @@ const RegisterUser = () => {
 
                 <TextField
                     label="Contraseña"
-                    type="password"
+                    type="text"
                     placeholder="........."
                     variant="outlined"
                     color="primary"
@@ -170,15 +176,15 @@ const RegisterUser = () => {
                         required: "Este campo es requerido",
                         pattern: {
                             value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d$@$!%*?&]{8,15}/,
-                            message: "Intenta introduciendo un correo electronico"
+                            message: "La contraseña debe de tener un caracter en Mayuscula, uno en miniculas, un numero y al menos un caracter especial"
                         },
                     })}
                 />
-                {(errors.password && <Alert severity="error"> {errors.password.message} </Alert>)}
+                {(errors.password && <Alert severity="error"> {errors.password.message } </Alert>)}
 
                 <TextField
                     label="Repite tu contraseña"
-                    type="password"
+                    type="text"
                     placeholder="........."
                     variant="outlined"
                     color="primary"
@@ -204,12 +210,15 @@ const RegisterUser = () => {
                             color: 'primary.main'
                         }
                     }}
-                    {...register('password', {
+                    {...register('repitPassword', {
                         required: "Este campo es requerido",
-                        pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d$@$!%*?&]{8,15}/,
+                        pattern: {
+                            value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d$@$!%*?&]{8,15}/,
+                            message: "La contraseña debe de tener un caracter en Mayuscula, uno en miniculas, un numero y al menos un caracter especial"
+                        },
                     })}
                 />
-                {(errors.password && <Alert severity="error"> {errors.password.message} </Alert>)}
+                {(errors.repitPassword && <Alert severity="error"> {errors.repitPassword.message } </Alert>)}
 
                 <Typography color='primary' textAlign='center' sx={{my:3}}>
                     "Por que cada outfit cuenta una historia. <br/> ¡Escribe la tuya con nosotros!"
@@ -225,11 +234,7 @@ const RegisterUser = () => {
                 >
                     Registrarse
                 </Button>
-                {
-                    error && <Alert severity={error.severity}> {error.message}</Alert>
-                }
             </Box>
-
         </Box>
     )
 }
