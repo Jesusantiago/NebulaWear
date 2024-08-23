@@ -45,7 +45,7 @@ const RegisterUser = () => {
             return
         }
 
-        try {
+
             const user = await auth.register(email, password);
             const { value } = await user;
             handlerErrors.find(err => {
@@ -53,9 +53,7 @@ const RegisterUser = () => {
                     return setError(err)
                 }
             })
-        } catch (err) {
-            return console.log(err)
-        }
+  
     }
 
 
