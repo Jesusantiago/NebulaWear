@@ -1,11 +1,14 @@
 
-import { Box, Button, InputAdornment, TextField, Typography } from "@mui/material";
+import { Alert, Box, Button, InputAdornment, TextField, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 import PersonIcon from '@mui/icons-material/Person';
 import { useAuth } from '../../context/isAuthContext'
+import { handlerErrors } from "../Service/handlerErrors";
+import { useState } from "react";
 
 
 const RecoveryPasswordForm = () => {
+    const [ error, setError ] = useState(null)
     const auth = useAuth()
 
 
@@ -17,8 +20,13 @@ const RecoveryPasswordForm = () => {
 
     const onSubmit = async (data) => {
         const { email } = data
-        await auth.resetPassword(email)
-        console.log("Correo de Recovery Password: " + email)
+        const { value } = await auth.resetPassword(email)
+        console.log(value)
+        if(value){
+            handlerErrors.find((err) =>{
+                if(err.value == value) setError(err)
+            })
+        }
     }
 
     return (
@@ -36,6 +44,10 @@ const RecoveryPasswordForm = () => {
                 background: 'linear-gradient(#74456A, #7C356D, #5D2952, #35102D, #050000)',
             }}
         >
+            { 
+                error  && <Alert severity={error.severity}> {error.message} </Alert>        
+            }
+
             {/* img */}
             <Box
                 component="article"

@@ -12,7 +12,7 @@ import {
 } from "firebase/auth";
 import { apiRegister } from "../components/Service/ServiceApi";
 import { Alert } from "@mui/material";
-import { errorRegister } from "../components/Service/handlerErrors";
+import { errorLogin, errorRegister, errorResetEmail } from "../components/Service/handlerErrors";
 
 // https://es.stackoverflow.com/questions/549655/c%C3%B3mo-verificar-que-el-correo-electr%C3%B3nico-sea-aut%C3%A9ntico-en-firebase
 // Documentación para ver tema de verificar correo
@@ -31,27 +31,17 @@ export const AuthProvider = ({ children }) => {
   // @const estado si hay o no un usuario logeado
 
   useEffect(() => {
-    // if(auth.currentUser.emailVerified === true){
-    //   localStorage.setItem("user", auth.currentUser.uid)
-    //   const storedUser = localStorage.getItem("user")
-    //   if(storedUser){
-    //     setUserCurrent(storedUser)
-    //   }
-    // }
-
-    console.log(auth.currentUser)
-      // if(storedUser){
-      //   setUserCurrent(storedUser)
-      //   console.log(userCurrent)
-      // }else{
-      //   console.log("esto no esta bien")
-      // }
+      const storedUser = localStorage.getItem("user")
+      if(storedUser){
+        setUserCurrent(storedUser)
+      }
     }, [userCurrent])
   
   /*
     @funtion { register } registra al usuario en Firebase y en nuestra base de datos
     @funtion createUserWithEmailAndPassword Google
     @funtion apiRegister registrar el usuario en nuestra base de datos
+    @funtion logout() desloguea al usuario de Google para poder hacer la verificación del email
 
   */
 
@@ -62,6 +52,7 @@ export const AuthProvider = ({ children }) => {
       if (Object.keys(user).length !== 0) {
         await apiRegister(user)
       }
+      logout()
       return {value : 3}
     }
     catch (err) {
@@ -80,15 +71,23 @@ export const AuthProvider = ({ children }) => {
     console.log(userCurrent)
     try{
       const { user } = await signInWithEmailAndPassword(auth, email, password);
+      console.log(user.emailVerified)
+      if(!user.emailVerified){
+        return {value : 12}
+      }
         localStorage.setItem("user", user.uid)
         setUserCurrent({
           uid: user.uid,
           name: user.displayName,
           email: user.email,
         })
+        return {value: 10}
         console.log(userCurrent)
     }catch (err){
-      console.log(err.message)
+      const errorMessage = errorLogin[err.code] || err.message || "El login ha fallado, por favor intentelo de nuevo"
+      return{
+        value : errorMessage
+      }
     }
   }
 
@@ -118,11 +117,17 @@ export const AuthProvider = ({ children }) => {
   }
 
   const resetPassword = async (email) => {
-    sendPasswordResetEmail(auth, email)
-    .then(()=> {
-      <Alert severity="success"> El correo se ha enviado</Alert>
-    })
-    .catch((err) => console.log(err))
+    try{
+      await sendPasswordResetEmail(auth, email)
+      return {value : 11}
+    }catch(err){
+      const errorMessage = errorResetEmail[err.code] || err.message || "El servicio ha fallado, por favor intentelo de nuevo"
+      console.log(errorMessage)
+      return {
+        value : errorMessage
+      }
+    }
+  
   }
 
   return <AuthContext.Provider
