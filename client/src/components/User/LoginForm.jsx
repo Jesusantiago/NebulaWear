@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useAuth } from "../../context/isAuthContext";
 import PersonIcon from '@mui/icons-material/Person';
 import PasswordIcon from '@mui/icons-material/Password';
+import { handlerErrors } from "../Service/handlerErrors";
 
 
 const LoginForm = () => {
@@ -22,9 +23,18 @@ const LoginForm = () => {
          @parametro { data } la data que recibe desde el formulario
          @constante { email } extrae solamente el email de la data
     */
-    const onSubmit = (data) => {
+    const onSubmit =  async (data) => {
         const { email, password } = data;
-        auth.login(email, password)
+        const { value } = await auth.login(email, password)
+        if(value){
+            console.log(value)
+            handlerErrors.find((err)=>{
+                if(err.value == value){
+                    console.log(err)
+                    return setError(err)
+                }
+            })
+        }
     }
 
     const handleGoogle = (e) => {
@@ -47,6 +57,9 @@ const LoginForm = () => {
                 background: 'linear-gradient(#74456A, #7C356D, #5D2952, #35102D, #050000)',
             }}
         >
+            { 
+                error  && <Alert severity={error.severity}> {error.message} </Alert>        
+            }
             {/* img */}
             <Box
                 component="article"
@@ -136,11 +149,12 @@ const LoginForm = () => {
                     }}
                     {...register('password', {
                         required: "Este campo es requerido",
-                        pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d$@$!%*?&]{8,15}/,
-                    })}
+                        pattern: {
+                            value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d$@$!%*?&]{8,15}/,
+                            message: "El patrón de la contraseña es incorrecto"
+                    }})}
                 />
-
-                {(errors.password && <Alert severity="error"> {errors.password.message} </Alert>)}
+                {(errors.password && <Alert severity="error"> {errors.password.message } </Alert>)}
 
                   {/* Olvide mi contraseña */}
                   <Button
