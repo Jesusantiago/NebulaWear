@@ -12,7 +12,7 @@ import {
 } from "firebase/auth";
 import { apiRegister } from "../components/Service/ServiceApi";
 import { Alert } from "@mui/material";
-import { errorLogin, errorRegister } from "../components/Service/handlerErrors";
+import { errorLogin, errorRegister, errorResetEmail } from "../components/Service/handlerErrors";
 
 // https://es.stackoverflow.com/questions/549655/c%C3%B3mo-verificar-que-el-correo-electr%C3%B3nico-sea-aut%C3%A9ntico-en-firebase
 // Documentación para ver tema de verificar correo
@@ -117,11 +117,17 @@ export const AuthProvider = ({ children }) => {
   }
 
   const resetPassword = async (email) => {
-    sendPasswordResetEmail(auth, email)
-    .then(()=> {
-      <Alert severity="success"> El correo se ha enviado</Alert>
-    })
-    .catch((err) => console.log(err))
+    try{
+      await sendPasswordResetEmail(auth, email)
+      return {value : 11}
+    }catch(err){
+      const errorMessage = errorResetEmail[err.code] || err.message || "El servicio ha fallado, por favor intentelo de nuevo"
+      console.log(errorMessage)
+      return {
+        value : errorMessage
+      }
+    }
+  
   }
 
   return <AuthContext.Provider

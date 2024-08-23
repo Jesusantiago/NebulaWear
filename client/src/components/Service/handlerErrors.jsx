@@ -5,6 +5,10 @@
             severity : "success",
             message : "Hemos registrado su correo, por favor verifique su correo en su bandeja de entrada."
         },{
+            value: 11,
+            severity: "success",
+            message: "Revise su bandeja de entrada"
+        },{
             value: 12,
             severity: "error",
             message: "Por favor verifique su correo para poder iniciar sesión"
@@ -76,5 +80,10 @@
         "auth/invalid-email" : 21,
         "auth/user-disabled" : 22,
         "auth/user-not-found" : 23,
-        "auth/wrong-password" : 24
+        "auth/wrong-password" : 24,
+    }
+
+    export const errorResetEmail = {
+        "auth/invalid-email" : 21,
+        "auth/user-not-found" : 23,
     }
