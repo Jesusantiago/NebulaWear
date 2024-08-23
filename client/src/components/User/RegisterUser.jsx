@@ -104,7 +104,6 @@ const RegisterUser = () => {
                 sx={{
                     width: 1,
                     height:'35svh',
-                    mb:25
                 }}
                 onSubmit={handleSubmit(onSubmit)}
             >
@@ -232,6 +231,31 @@ const RegisterUser = () => {
                 >
                     Registrarse
                 </Button>
+            </Box>
+
+            <Box
+                component="article"
+                display="flex"
+                justifyContent='center'
+                width="100%"
+                size='large'
+                sx={{
+                    pb:5
+                }}
+            >
+                <Button
+                    href="/login"
+                    type="button"
+                    color="primary"
+                    variant="text"
+                    sx={{
+                        textDecoration: 'underline'
+                    }}
+                >
+                    Back to login
+                </Button>
+
+
             </Box>
         </Box>
     )
