@@ -1,3 +1,4 @@
+![Logo de NebulaWear](client/src/assets/logos/nebula_logo.png)
 
 # Nebula Wear
 
