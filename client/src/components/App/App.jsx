@@ -1,6 +1,8 @@
 import Navbar from './Navbar';
 import Product  from "../Product/Product";
 import { useAuth } from "../../context/isAuthContext";
+import { Outlet } from 'react-router-dom'
+import { Button, Container } from '@mui/material';
 
 const SearchBox = () => {
   return (
@@ -31,33 +33,27 @@ function App() {
     auth.logout()
     
   }
-
   return (
     <>
       <Navbar />
 
-      <main>        
-        <section className="main">
+          
 
 
+      <Container
+        component="main"
+      >        
+        <Outlet />
 
-          <div className="productList">
-            <Product />
-            <Product />
-            <Product />
-            <Product />
-            <Product />
-            <Product />
-          </div>
-        </section>
-
-
-        
-        <button type='button' onClick={logoutComponent} > Cerrar sesion</button>
-
-      
-
-      </main>
+        <Button
+      //  type='button' 
+        variant='outlined'
+        onClick={logoutComponent} 
+        color='background'
+      > 
+        Cerrar sesion
+      </Button>
+      </Container>
     </>
   )
 }

@@ -4,6 +4,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import RouterPublic from "./RouterPublic";
 import RouterPrivade from "./RouterPrivade";
 import { useAuth } from "../context/isAuthContext";
+import App from "../components/App/App";
 
 /*
     @description Puerta de entrada a la Aplicacion, verifica si el usuario debe tener una pantalla publica o privada
@@ -21,12 +22,10 @@ const AppRouter = () => {
     */
     const getRoutesPublic = (routes) => {
         return routes.map((prop) => {
-            if (prop.status == "Public") {
-                return (<Route path={prop.path} element={prop.component} key={prop.name} />)
-            } else null;
+            if (prop.status == "Public") return (<Route path={prop.path} element={prop.component} key={prop.name} />)
+            else null;
         })
     };
-
     /*
         @description Presenta y renderiza las rutas privadas
         @funtion { getRoutesPrivade } Hace lo mismo que la de arriba, pero con las rutas Privade.
@@ -34,24 +33,26 @@ const AppRouter = () => {
     */
     const getRoutesPrivade = (routes) => {
         return routes.map((prop) => {
-            if (prop.status == "Privade") return (< Route path={prop.path} element={prop.component} key={prop.name} />)
+            if (prop.status == "Privade") return (
+                <Route path={prop.path} element={prop.element} key={prop.name} exact>
+                    {prop.children && getRoutesPrivade(prop.children) }
+                </Route>
+            )
             else null;
-        }
-        )
+        })
     }
-
     return (
         <>
             {!userCurrent
-                ? <Routes>
+                ? 
+                <Routes>
                     {getRoutesPublic(RouterPublic)}
                     <Route path="*" element={<Navigate to="/login" replace />} />
                 </Routes>
                 : <Routes>
-                    {getRoutesPrivade(RouterPrivade)}
-                    <Route path="*" element={<Navigate to={"/store"} replace />} />
+                        {getRoutesPrivade(RouterPrivade)}
+                        <Route path="*" element={<Navigate to="/store" />} />
                 </Routes>
-
             }
         </>
     )
